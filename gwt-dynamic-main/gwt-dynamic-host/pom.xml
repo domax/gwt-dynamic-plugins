@@ -1,0 +1,89 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<name>gwt-dynamic-host</name>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>gwt-dynamic-host</artifactId>
+	<packaging>war</packaging>
+	
+	<parent>
+		<groupId>com.domax.gwt</groupId>
+		<artifactId>gwt-dynamic-main</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<app.module>org.gwt.dynamic.host.DynamicHost</app.module>
+	</properties>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<app.module>org.gwt.dynamic.host.DynamicHost_dev</app.module>
+			</properties>
+		</profile>
+	</profiles>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.domax.gwt</groupId>
+			<artifactId>gwt-dynamic-common</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+	
+		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<configuration>
+					<runTarget>index.html</runTarget>
+					<localWorkers>2</localWorkers>
+					<disableClassMetadata>${gwtc.disableClassMetadata}</disableClassMetadata>
+					<disableCastChecking>true</disableCastChecking>
+					<modules>
+						<module>${app.module}</module>
+					</modules>
+					<style>${gwtc.style}</style>
+					<bindAddress>127.0.0.1</bindAddress>
+					<codeServerPort>9997</codeServerPort>
+					<codeServerWorkDir>${project.build.directory}</codeServerWorkDir>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>war</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<warName>${project.build.finalName}-r${buildNumber}</warName>
+					<packagingExcludes>WEB-INF/deploy/, WEB-INF/**/*.java</packagingExcludes>
+					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+	</build>
+	
+</project>

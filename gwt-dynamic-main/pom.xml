@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<name>gwt-dynamic-main</name>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.domax.gwt</groupId>
+	<artifactId>gwt-dynamic-main</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<gwtversion>2.5.1</gwtversion>
+		<gwtmaven>2.5.1</gwtmaven>
+		<gwtc.loglevel>INFO</gwtc.loglevel>
+		<gwtc.disableClassMetadata>true</gwtc.disableClassMetadata>
+		<gwtc.style>OBF</gwtc.style>
+		<gwtc.closure>true</gwtc.closure>
+		<gwtc.report>false</gwtc.report>
+	</properties>
+
+	<scm>
+		<connection>scm:git:http://localhost</connection>
+	</scm>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<gwtc.disableClassMetadata>false</gwtc.disableClassMetadata>
+				<gwtc.style>PRETTY</gwtc.style>
+				<gwtc.closure>false</gwtc.closure>
+				<gwtc.report>true</gwtc.report>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profile.env>prod</profile.env>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>pretty</id>
+			<properties>
+				<gwtc.disableClassMetadata>false</gwtc.disableClassMetadata>
+				<gwtc.style>PRETTY</gwtc.style>
+				<gwtc.closure>false</gwtc.closure>
+				<gwtc.report>true</gwtc.report>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>obf</id>
+			<properties>
+				<gwtc.disableClassMetadata>true</gwtc.disableClassMetadata>
+				<gwtc.style>OBF</gwtc.style>
+				<gwtc.closure>true</gwtc.closure>
+				<gwtc.report>false</gwtc.report>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwtversion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtversion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-codeserver</artifactId>
+			<version>${gwtversion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>1.5.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>1.5.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt.gwtmockito</groupId>
+			<artifactId>gwtmockito</artifactId>
+			<version>1.1.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+	
+		<plugins>
+		
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+					<format>{0,date,yyMMddHH}</format>
+					<items>
+						<item>timestamp</item>
+					</items>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+					<revisionOnScmFailure>none</revisionOnScmFailure>   
+				</configuration>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+						<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+					</additionalClasspathElements>
+					<useManifestOnlyJar>false</useManifestOnlyJar>
+					<forkMode>always</forkMode>
+					<systemPropertyVariables>
+						<property>
+							<name>gwt.args</name>
+							<value>-out target/gwt-tests</value>
+						</property>
+						<property>
+							<!-- Setting this to true (default) causes a exception first time test are run Gwt issue_6443 -->
+							<name>gwt.persistentunitcache</name>
+							<value>false</value>
+						</property>
+					</systemPropertyVariables>
+					<argLine>-Xmx1024m</argLine>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwtversion}</version>
+				<executions>
+					<execution>
+						<configuration>
+							<extraJvmArgs>-Xmx1024M -Xss1024k</extraJvmArgs>
+						</configuration>
+						<id>compile gwt</id>
+						<goals>
+							<goal>compile</goal>
+              <goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.26</version>
+				<configuration>
+					<contextPath>/${project.artifactId}</contextPath>
+					<webAppSourceDirectory>${basedir}/target/${project.artifactId}-${project.version}</webAppSourceDirectory>
+					<stopKey>stop</stopKey>
+					<stopPort>8089</stopPort>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+		
+	</build>
+
+	<modules>
+		<module>gwt-dynamic-common</module>
+		<module>gwt-dynamic-host</module>
+	</modules>
+</project>

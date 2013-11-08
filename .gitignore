@@ -1,16 +1,13 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-
-# gwt caches and compiled units #
-war/gwt_bree/
+target/
+.DS_Store
+.gwt
+.settings/
+.classpath
+.project
+*.iml
+.idea
 gwt-unitCache/
-
-# boilerplate generated classes #
 .apt_generated/
+war/
+www-test/
 
-# more caches and things from deploy #
-war/WEB-INF/deploy/
-war/WEB-INF/classes/

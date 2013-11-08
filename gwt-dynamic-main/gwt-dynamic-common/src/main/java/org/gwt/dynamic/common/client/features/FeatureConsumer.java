@@ -1,0 +1,47 @@
+/*
+ * Copyright 2013 Maxim Dominichenko
+ * 
+ * Licensed under The MIT License (MIT) (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * https://github.com/domax/gwt-dynamic-plugins/blob/master/LICENSE
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package org.gwt.dynamic.common.client.features;
+
+import java.util.logging.Logger;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
+
+public abstract class FeatureConsumer<A, R> extends AbstractFeature<A, R> {
+
+	private static final Logger LOG = Logger.getLogger(FeatureConsumer.class.getName());
+	
+	@Override
+	public void call(A arguments, AsyncCallback<R> callback) {
+		String moduleName = getModuleName();
+		String featureName = getType();
+		LOG.fine("call: moduleName=" + moduleName + "; type=" + featureName + "; arguments=" + arguments);
+		if (isRegistered())
+			doCall(moduleName, featureName, arguments, new ConsumerCallback<R>(callback));
+		else if (callback != null) callback.onFailure(
+				new RuntimeException("feature not supported: moduleName=" + moduleName + "; type=" + featureName));
+	}
+
+	private native void doCall(String moduleName, String featureName, A arguments, ConsumerCallback<R> callback) /*-{
+		var f = $wnd.__features[moduleName][featureName];
+		f.callFunction.call(f.context, arguments,
+			function (error) {
+				callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onFailure(Ljava/lang/Throwable;).call(callback, error);
+			},
+			function (result) {
+				callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onSuccess(Ljava/lang/Object;).call(callback, result);
+			});
+	}-*/;	
+}
