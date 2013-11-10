@@ -28,6 +28,7 @@ import org.fusesource.restygwt.client.RestServiceProxy;
 import org.gwt.dynamic.common.client.features.SimpleFeatureConsumer;
 import org.gwt.dynamic.common.client.services.BusyEvent.BusyHandler;
 import org.gwt.dynamic.common.client.services.BusyEvent.HasBusyHandlers;
+import org.gwt.dynamic.common.shared.Utils;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.GwtEvent;
@@ -70,11 +71,22 @@ public class AbstractServiceConsumer<R extends RestService> implements HasBusyHa
 	
 	private final R rest;
 	private HandlerManager handlerManager;
+	
+	private static native String getServiceUrl0(String moduleName) /*-{
+		if (!$wnd.__config || !$wnd.__config[moduleName]) return null;
+		return $wnd.__config[moduleName].service_url;
+	}-*/;
+	
+	public static String getServiceUrl() {
+		String result = getServiceUrl0(GWT.getModuleName());
+		if (Utils.isHollow(result)) result = GWT.getHostPageBaseURL() + REST_ROOT_PATH;
+		return result;
+	}
 
 	protected AbstractServiceConsumer(R rest) {
 		if (rest == null) throw new IllegalArgumentException("Rest service cannot be a null");
 		this.rest = rest;
-		((RestServiceProxy) this.rest).setResource(new Resource(GWT.getHostPageBaseURL() + REST_ROOT_PATH));
+		((RestServiceProxy) this.rest).setResource(new Resource(getServiceUrl()));
 	}
 
 	private void setBusy(boolean busy) {

@@ -26,6 +26,12 @@
 			bottom: 0;
 			left: 0;
 		}
+		
+		.headerPanel {
+			padding: 0 5px;
+			height: 2em;
+		}
+		
 		.contentPanel {
 			position: absolute;
 			top: 1.5em;
@@ -33,14 +39,41 @@
 			bottom: 0.5em;
 			left: 0.5em;
 		}
+		
+		.labelHeader {
+			font-weight: bold;
+			font-size: 120%;
+		}
+		
+		.spinner {
+			width: 1em;
+			height: 1.1em;
+			font-size: 150%;
+		}
 	</ui:style>
 
 	<g:DockLayoutPanel unit="EM" ui:field="mainLayout" styleName="{style.mainLayout}">
-		<g:west size="8.5">
+		<g:north size="2.0">
+			<g:HorizontalPanel 
+				ui:field="headerPanel" 
+				styleName="{style.headerPanel}" 
+				spacing="0" 
+				borderWidth="0" 
+				horizontalAlignment="ALIGN_LEFT" 
+				verticalAlignment="ALIGN_MIDDLE">
+				<g:cell width="100%">
+					<g:Label ui:field="header" styleName="{style.labelHeader}" text="GWT Dynamic Host Application"/>
+				</g:cell>
+				<g:cell>
+					<g:Label ui:field="spinner" styleName="{style.spinner} icon-spin6"/>
+				</g:cell>
+			</g:HorizontalPanel>
+		</g:north>
+		<g:west size="10.0">
 			<cv:CellList ui:field="cellList" />
 		</g:west>
 		<g:center>
-			<g:CaptionPanel captionText="Caption" ui:field="captionPanel">
+			<g:CaptionPanel captionText="///" ui:field="centerPanel">
 				<g:SimplePanel ui:field="contentPanel" styleName="{style.contentPanel}" />
 			</g:CaptionPanel>
 		</g:center>

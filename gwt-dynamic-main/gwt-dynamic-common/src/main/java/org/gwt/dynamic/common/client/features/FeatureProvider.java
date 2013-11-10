@@ -26,10 +26,14 @@ public abstract class FeatureProvider<A, R> extends AbstractFeature<A, R> {
 	private final String moduleName;
 
 	public FeatureProvider(String moduleName) {
-		this.moduleName = moduleName;
-		register();
+		this(moduleName, true);
 	}
 
+	public FeatureProvider(String moduleName, boolean doRegister) {
+		this.moduleName = moduleName;
+		if (doRegister) register();
+	}
+	
 	@Override
 	public String getModuleName() {
 		return moduleName;
@@ -40,9 +44,9 @@ public abstract class FeatureProvider<A, R> extends AbstractFeature<A, R> {
 	 */
 	public void register() {
 		String moduleName = getModuleName();
-		String featureName = getType();
-		LOG.info("register: moduleName='" + moduleName + "' type=" + featureName);
-		register(moduleName, featureName);
+		String type = getType();
+		LOG.info("FeatureProvider.register: moduleName=" + moduleName + "; type=" + type);
+		register(moduleName, type);
 	}
 
 	/**
@@ -50,9 +54,9 @@ public abstract class FeatureProvider<A, R> extends AbstractFeature<A, R> {
 	 */
 	public void unregister() {
 		String moduleName = getModuleName();
-		String featureName = getType();
-		LOG.info("unregister: moduleName='" + moduleName + "' type=" + featureName);
-		if (isRegistered()) unregister(moduleName, featureName);
+		String type = getType();
+		LOG.info("FeatureProvider.unregister: moduleName=" + moduleName + "; type=" + type);
+		if (isRegistered()) unregister(moduleName, type);
 	}
 
 	private native void register(String moduleName, String featureName) /*-{
@@ -70,7 +74,8 @@ public abstract class FeatureProvider<A, R> extends AbstractFeature<A, R> {
 	}-*/;
 	
 	final private void doCall(A arguments, JavaScriptObject failureFunction, JavaScriptObject successFunction) {
-		LOG.fine("doCall: moduleName='" + getModuleName() + "' type=" + getType() + "; arguments=" + arguments);
+		LOG.fine("FeatureProvider.doCall: moduleName=" + getModuleName() + "; type=" + getType()
+				+ "; arguments=" + arguments);
 		call(arguments, new ProviderCallback<R>(failureFunction, successFunction));
 	}
 }

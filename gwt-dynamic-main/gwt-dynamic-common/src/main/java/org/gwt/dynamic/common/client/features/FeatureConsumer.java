@@ -26,12 +26,12 @@ public abstract class FeatureConsumer<A, R> extends AbstractFeature<A, R> {
 	@Override
 	public void call(A arguments, AsyncCallback<R> callback) {
 		String moduleName = getModuleName();
-		String featureName = getType();
-		LOG.fine("call: moduleName=" + moduleName + "; type=" + featureName + "; arguments=" + arguments);
+		String type = getType();
+		LOG.fine("FeatureConsumer.call: moduleName=" + moduleName + "; type=" + type + "; arguments=" + arguments);
 		if (isRegistered())
-			doCall(moduleName, featureName, arguments, new ConsumerCallback<R>(callback));
+			doCall(moduleName, type, arguments, new ConsumerCallback<R>(callback));
 		else if (callback != null) callback.onFailure(
-				new RuntimeException("feature not supported: moduleName=" + moduleName + "; type=" + featureName));
+				new RuntimeException("feature not supported: moduleName=" + moduleName + "; type=" + type));
 	}
 
 	private native void doCall(String moduleName, String featureName, A arguments, ConsumerCallback<R> callback) /*-{

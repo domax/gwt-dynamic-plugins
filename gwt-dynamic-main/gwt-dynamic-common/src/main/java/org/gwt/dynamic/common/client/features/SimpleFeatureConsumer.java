@@ -21,18 +21,18 @@ public class SimpleFeatureConsumer<A, R> extends FeatureConsumer<A, R> {
 
 	private static final Logger LOG = Logger.getLogger(SimpleFeatureConsumer.class.getName());
 	
-	private final String featureType;
+	private final String type;
 	private final String moduleName;
 
-	public SimpleFeatureConsumer(String featureType, String moduleName) {
-		LOG.info("SimpleFeatureConsumer: featureType=" + featureType + "; moduleName=" + moduleName);
-		this.featureType = featureType;
+	public SimpleFeatureConsumer(String moduleName, String type) {
+		LOG.info("SimpleFeatureConsumer: moduleName=" + moduleName + "; type=" + type);
+		this.type = type;
 		this.moduleName = moduleName;
 	}
 
 	@Override
 	public String getType() {
-		return featureType;
+		return type;
 	}
 
 	@Override

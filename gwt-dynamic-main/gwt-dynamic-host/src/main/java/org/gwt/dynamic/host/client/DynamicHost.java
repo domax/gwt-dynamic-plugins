@@ -15,14 +15,41 @@
  */
 package org.gwt.dynamic.host.client;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.gwt.dynamic.host.client.features.BusyFeatureProvider;
+import org.gwt.dynamic.host.client.main.MainLayout;
+import org.gwt.dynamic.host.client.services.ModuleServiceConsumer;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 public class DynamicHost implements EntryPoint {
 
+	private static final Logger LOG = Logger.getLogger(DynamicHost.class.getName());
+	
 	@Override
 	public void onModuleLoad() {
-		RootLayoutPanel.get().add(new MainLayout());
+		LOG.info("DynamicHost.onModuleLoad");
+		MainLayout mainLayout = new MainLayout();
+		BusyFeatureProvider busyFeatureProvider = new BusyFeatureProvider();
+		busyFeatureProvider.addBusyHandler(mainLayout);
+		RootLayoutPanel.get().add(mainLayout);
+		
+		ModuleServiceConsumer.get().getModules(new AsyncCallback<List<String>>() {
+			
+			@Override
+			public void onSuccess(List<String> result) {
+				LOG.info("DynamicHost.onModuleLoad#getModules#onSuccess: result=" + result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				LOG.log(Level.SEVERE, "DynamicHost.onModuleLoad#getModules#onFailure:", caught);
+			}
+		});
 	}
-
 }

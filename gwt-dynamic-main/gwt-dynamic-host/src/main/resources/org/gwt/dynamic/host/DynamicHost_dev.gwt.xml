@@ -31,6 +31,6 @@
 	<set-configuration-property name="devModeRedirectEnabled" value="true" />
 	<set-configuration-property name="xsiframe.failIfScriptTag" value="false" />
 
-<!-- 	<set-configuration-property name="CssResource.obfuscationPrefix" value="DH" /> -->
+	<set-configuration-property name="CssResource.obfuscationPrefix" value="DH" />
 	<set-configuration-property name="CssResource.style" value="pretty" />
 </module>
