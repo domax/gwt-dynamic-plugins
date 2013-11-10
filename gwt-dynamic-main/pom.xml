@@ -32,11 +32,13 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<gwtversion>2.5.1</gwtversion>
 		<gwtmaven>2.5.1</gwtmaven>
+		<!-- Most of time we deal with code as developers, so let's define defaults most comfortable for us -->
 		<gwtc.loglevel>INFO</gwtc.loglevel>
 		<gwtc.disableClassMetadata>false</gwtc.disableClassMetadata>
 		<gwtc.style>PRETTY</gwtc.style>
-		<gwtc.closure>false</gwtc.closure>
-		<gwtc.report>true</gwtc.report>
+		<gwtc.enableClosureCompiler>false</gwtc.enableClosureCompiler>
+		<gwtc.compileReport>true</gwtc.compileReport>
+		<gwtc.disableCastChecking>true</gwtc.disableCastChecking>
 	</properties>
 
 	<scm>
@@ -56,8 +58,9 @@
 			<properties>
 				<gwtc.disableClassMetadata>true</gwtc.disableClassMetadata>
 				<gwtc.style>OBF</gwtc.style>
-				<gwtc.closure>true</gwtc.closure>
-				<gwtc.report>false</gwtc.report>
+				<gwtc.enableClosureCompiler>true</gwtc.enableClosureCompiler>
+				<gwtc.compileReport>false</gwtc.compileReport>
+				<gwtc.disableCastChecking>false</gwtc.disableCastChecking>
 			</properties>
 		</profile>
 
@@ -66,8 +69,7 @@
 			<properties>
 				<gwtc.disableClassMetadata>false</gwtc.disableClassMetadata>
 				<gwtc.style>PRETTY</gwtc.style>
-				<gwtc.closure>false</gwtc.closure>
-				<gwtc.report>true</gwtc.report>
+				<gwtc.enableClosureCompiler>false</gwtc.enableClosureCompiler>
 			</properties>
 		</profile>
 	</profiles>
@@ -241,13 +243,16 @@
 				<artifactId>gwt-maven-plugin</artifactId>
 				<version>${gwtversion}</version>
 				<configuration>
-					<runTarget>index.html</runTarget>
+					<logLevel>${gwtc.loglevel}</logLevel>
+					<disableClassMetadata>${gwtc.disableClassMetadata}</disableClassMetadata>
+					<style>${gwtc.style}</style>
+					<enableClosureCompiler>${gwtc.enableClosureCompiler}</enableClosureCompiler>
+					<compileReport>${gwtc.compileReport}</compileReport>
+					<disableCastChecking>${gwtc.disableCastChecking}</disableCastChecking>
 					<extraJvmArgs>-Xmx1024M -Xss1024k</extraJvmArgs>
 					<localWorkers>2</localWorkers>
-					<disableClassMetadata>${gwtc.disableClassMetadata}</disableClassMetadata>
-					<disableCastChecking>true</disableCastChecking>
 					<modules/>
-					<style>${gwtc.style}</style>
+					<runTarget>index.html</runTarget>
 					<bindAddress>127.0.0.1</bindAddress>
 					<codeServerPort>9998</codeServerPort>
 					<codeServerWorkDir>${project.build.directory}</codeServerWorkDir>
@@ -290,10 +295,16 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>8.1.13.v20130916</version>
 				<configuration>
+					<!-- See detailed explanation here: http://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin -->
+					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<contextPath>/${project.artifactId}</contextPath>
-					<stopKey>stop</stopKey>
-					<stopPort>8089</stopPort>
-					<war>${basedir}/target/${project.build.finalName}-r${buildNumber}.war</war>
+					<war>${basedir}/target/${project.build.finalName}</war>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8888</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
 				</configuration>
 			</plugin>
 			
