@@ -18,7 +18,16 @@
 	"-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN"
 	"http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
 
-<module rename-to="DynamicHost">
-	<inherits name="org.gwt.dynamic.common.DynamicCommon" />
-	<inherits name="org.gwt.dynamic.host.Host" />
+<module>
+	<source path="client" />
+	<source path="shared" />
+	<public path="export" />
+
+	<entry-point class="org.gwt.dynamic.host.client.DynamicHost" />
+
+	<set-configuration-property name="CssResource.obfuscationPrefix" value="DH" />
+	
+	<replace-with class="org.gwt.dynamic.host.client.module.ScriptInjectorModuleLoader">
+		<when-type-is class="org.gwt.dynamic.host.client.module.ModuleLoader" />
+	</replace-with>
 </module>

@@ -13,20 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.host.client.services;
+package org.gwt.dynamic.module.foo.client;
 
-import java.util.List;
+import java.util.logging.Logger;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import org.gwt.dynamic.common.client.module.AbstractModule;
 
-import org.fusesource.restygwt.client.MethodCallback;
-import org.fusesource.restygwt.client.RestService;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
+public class DynamicModuleFoo extends AbstractModule {
 
-public interface ModuleRestService extends RestService {
-
-	@GET
-	@Path("modules")
-	public void getModules(MethodCallback<List<ModuleBean>> callback);
+	private static final Logger LOG = Logger.getLogger(DynamicModuleFoo.class.getName());
+	
+	@Override
+	public void onModuleConfigured() {
+		LOG.info("DynamicModuleFoo.onModuleConfigured");
+		reportIsReady();
+	}
 }

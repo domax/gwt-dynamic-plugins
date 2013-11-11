@@ -15,29 +15,42 @@
  */
 package org.gwt.dynamic.host.server.rest;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.gwt.dynamic.common.server.rest.AbstractServiceProvider;
 import org.gwt.dynamic.common.shared.Utils;
+import org.gwt.dynamic.host.shared.beans.ModuleBean;
 import org.gwt.dynamic.host.shared.services.ModuleService;
 
 @Path("/")
 public class ModuleServiceProvider extends AbstractServiceProvider implements ModuleService {
-	
+
+	private static final Logger LOG = Logger.getLogger(ModuleServiceProvider.class.getName());
+
 	private static final String PKEY_MODULES = "modules";
+	private final ObjectMapper mapper = new ObjectMapper();
 
 	@GET
 	@Path("/modules")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public List<String> getModules() {
+	public List<ModuleBean> getModules() {
 		String modules = PROPS.getProperty(PKEY_MODULES);
-		return Utils.isHollow(modules) ? null : Arrays.asList(modules.split("\\s*,\\s*"));
+		if (Utils.isHollow(modules)) return null;
+		try {
+			return mapper.readValue(modules, new TypeReference<List<ModuleBean>>() {});
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "ModuleServiceProvider.getModules:", e);
+			return null;
+		}
 	}
 }

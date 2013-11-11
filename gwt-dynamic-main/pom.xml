@@ -39,6 +39,7 @@
 		<gwtc.enableClosureCompiler>false</gwtc.enableClosureCompiler>
 		<gwtc.compileReport>true</gwtc.compileReport>
 		<gwtc.disableCastChecking>true</gwtc.disableCastChecking>
+		<app.module/>
 	</properties>
 
 	<scm>
@@ -251,7 +252,9 @@
 					<disableCastChecking>${gwtc.disableCastChecking}</disableCastChecking>
 					<extraJvmArgs>-Xmx1024M -Xss1024k</extraJvmArgs>
 					<localWorkers>2</localWorkers>
-					<modules/>
+					<modules>
+						<module>${app.module}</module>
+					</modules>
 					<runTarget>index.html</runTarget>
 					<bindAddress>127.0.0.1</bindAddress>
 					<codeServerPort>9998</codeServerPort>
@@ -315,5 +318,6 @@
 	<modules>
 		<module>gwt-dynamic-common</module>
 		<module>gwt-dynamic-host</module>
+		<module>gwt-dynamic-module-foo</module>
 	</modules>
 </project>

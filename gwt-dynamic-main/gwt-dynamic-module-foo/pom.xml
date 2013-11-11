@@ -1,11 +1,11 @@
-<project
+<project 
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
-	<name>gwt-dynamic-host</name>
+	<name>gwt-dynamic-module-foo</name>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>gwt-dynamic-host</artifactId>
+	<artifactId>gwt-dynamic-module-foo</artifactId>
 	<packaging>war</packaging>
 	
 	<parent>
@@ -13,9 +13,9 @@
 		<artifactId>gwt-dynamic-main</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
+	
 	<properties>
-		<app.module>org.gwt.dynamic.host.DynamicHost_dev</app.module>
+		<app.module>org.gwt.dynamic.module.foo.DynamicModuleFoo_dev</app.module>
 		<service.url>http://localhost:8888/rest</service.url>
 	</properties>
 	
@@ -23,7 +23,7 @@
 		<profile>
 			<id>prod</id>
 			<properties>
-				<app.module>org.gwt.dynamic.host.DynamicHost</app.module>
+				<app.module>org.gwt.dynamic.module.foo.DynamicModuleFoo</app.module>
 				<service.url/>
 			</properties>
 		</profile>

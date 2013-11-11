@@ -13,20 +13,17 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.host.client.services;
+package org.gwt.dynamic.host.client.module;
 
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-
-import org.fusesource.restygwt.client.MethodCallback;
-import org.fusesource.restygwt.client.RestService;
 import org.gwt.dynamic.host.shared.beans.ModuleBean;
 
-public interface ModuleRestService extends RestService {
+import com.google.gwt.core.shared.GWT;
 
-	@GET
-	@Path("modules")
-	public void getModules(MethodCallback<List<ModuleBean>> callback);
+public interface ModuleLoader {
+
+	public static final ModuleLoader INSTANCE = GWT.create(ModuleLoader.class);
+
+	void load(String urlBase, List<ModuleBean> modules);
 }

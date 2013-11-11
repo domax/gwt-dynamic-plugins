@@ -17,9 +17,11 @@ package org.gwt.dynamic.host.shared.services;
 
 import java.util.List;
 
+import org.gwt.dynamic.host.shared.beans.ModuleBean;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 
 public interface ModuleService extends RemoteService {
 	
-	List<String> getModules();
+	List<ModuleBean> getModules();
 }

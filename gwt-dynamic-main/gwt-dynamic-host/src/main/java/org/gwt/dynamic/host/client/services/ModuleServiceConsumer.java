@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 import org.fusesource.restygwt.client.MethodCallback;
 import org.gwt.dynamic.common.client.services.AbstractServiceConsumer;
+import org.gwt.dynamic.host.shared.beans.ModuleBean;
 import org.gwt.dynamic.host.shared.services.ModuleServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
@@ -42,11 +43,11 @@ public class ModuleServiceConsumer extends AbstractServiceConsumer<ModuleRestSer
 	}
 
 	@Override
-	public void getModules(AsyncCallback<List<String>> callback) {
+	public void getModules(AsyncCallback<List<ModuleBean>> callback) {
 		LOG.info("ModuleServiceConsumer.getModules");
-		new Requestor<List<String>>() {
+		new Requestor<List<ModuleBean>>() {
 			@Override
-			protected void callRest(ModuleRestService rest, MethodCallback<List<String>> callback) {
+			protected void callRest(ModuleRestService rest, MethodCallback<List<ModuleBean>> callback) {
 				rest.getModules(callback);
 			}
 		}.call(callback);
