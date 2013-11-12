@@ -40,6 +40,7 @@
 		<gwtc.compileReport>true</gwtc.compileReport>
 		<gwtc.disableCastChecking>true</gwtc.disableCastChecking>
 		<app.module/>
+		<service.url>http://localhost:8888/${project.artifactId}/rest</service.url>
 	</properties>
 
 	<scm>
@@ -290,24 +291,6 @@
 							<directory>src/main/webapp</directory>
 						</resource>
 					</webResources>
-				</configuration>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.13.v20130916</version>
-				<configuration>
-					<!-- See detailed explanation here: http://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin -->
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<contextPath>/${project.artifactId}</contextPath>
-					<war>${basedir}/target/${project.build.finalName}</war>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8888</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
 				</configuration>
 			</plugin>
 			

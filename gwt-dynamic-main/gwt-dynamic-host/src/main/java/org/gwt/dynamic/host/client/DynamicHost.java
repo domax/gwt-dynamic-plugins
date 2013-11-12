@@ -36,14 +36,20 @@ public class DynamicHost implements EntryPoint {
 
 	private static final Logger LOG = Logger.getLogger(DynamicHost.class.getName());
 	private static final int LOAD_TIMEOUT = 10;
+	
+	private final BusyFeatureProvider busyFeatureProvider = new BusyFeatureProvider();
 
 	@Override
 	public void onModuleLoad() {
 		LOG.info("DynamicHost.onModuleLoad");
 		MainLayout mainLayout = new MainLayout();
-		new BusyFeatureProvider().addBusyHandler(mainLayout);
+		busyFeatureProvider.addBusyHandler(mainLayout);
 		RootLayoutPanel.get().add(mainLayout);
-
+		loadModules();
+	}
+	
+	private void loadModules() {
+		busyFeatureProvider.setBusy(true);
 		ModuleServiceConsumer.get().getModules(new AsyncCallback<List<ModuleBean>>() {
 
 			@Override
@@ -56,6 +62,7 @@ public class DynamicHost implements EntryPoint {
 					public void onLoad(LoadEvent event) {
 						LOG.info("DynamicHost.onModuleLoad#ModuleReadyFeatureProvider.onLoad: unreadyModules=" 
 								+ moduleReadyFeatureProvider.getUnreadyModules());
+						busyFeatureProvider.setBusy(false);
 						onModulesLoaded(moduleReadyFeatureProvider.getReadyModules());
 					}
 				});
@@ -65,6 +72,7 @@ public class DynamicHost implements EntryPoint {
 			@Override
 			public void onFailure(Throwable caught) {
 				LOG.log(Level.SEVERE, "DynamicHost.onModuleLoad#getModules#onFailure:", caught);
+				busyFeatureProvider.setBusy(false);
 				onModulesLoaded(null);
 			}
 		});

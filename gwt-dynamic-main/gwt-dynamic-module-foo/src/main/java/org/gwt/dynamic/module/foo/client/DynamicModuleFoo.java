@@ -24,7 +24,7 @@ public class DynamicModuleFoo extends AbstractModule {
 	private static final Logger LOG = Logger.getLogger(DynamicModuleFoo.class.getName());
 	
 	@Override
-	public void onModuleConfigured() {
+	protected void onModuleConfigured() {
 		LOG.info("DynamicModuleFoo.onModuleConfigured");
 		reportIsReady();
 	}

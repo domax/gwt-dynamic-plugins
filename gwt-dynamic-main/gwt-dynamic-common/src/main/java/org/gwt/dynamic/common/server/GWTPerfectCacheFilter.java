@@ -16,7 +16,6 @@
 package org.gwt.dynamic.common.server;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.Filter;
@@ -30,6 +29,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.gwt.dynamic.common.shared.Utils;
 
+/**
+ * A simple servlet filter implementation of <a
+ * href='http://www.gwtproject.org/doc/latest/DevGuideCompilingAndDebugging.html#perfect_caching'>GWT Perfect
+ * Caching</a>
+ * 
+ * @author <a href="mailto:max@dominichenko.com">Maxim Dominichenko</a>
+ */
 public class GWTPerfectCacheFilter implements Filter {
 
 	private static final Logger LOG = Logger.getLogger(GWTPerfectCacheFilter.class.getName());
@@ -38,7 +44,7 @@ public class GWTPerfectCacheFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		LOG.log(Level.INFO, "GWTPerfectCacheFilter.init");
+		LOG.info("GWTPerfectCacheFilter.init");
 	}
 
 	@Override
@@ -46,16 +52,15 @@ public class GWTPerfectCacheFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		String requestUrl = ((HttpServletRequest) request).getRequestURL().toString();
-		LOG.log(Level.INFO, "GWTPerfectCacheFilter.doFilter: requestUrl=" + requestUrl);
+		LOG.fine("GWTPerfectCacheFilter.doFilter: requestUrl=" + requestUrl);
 		if (!Utils.isHollow(requestUrl)) {
 			if (requestUrl.contains(NO_CACHE)) {
-				LOG.log(Level.INFO, "GWTPerfectCacheFilter.doFilter: requestUrl contains " + NO_CACHE + " string.");
+				LOG.info("GWTPerfectCacheFilter.doFilter: requestUrl contains '" + NO_CACHE + "' string.");
 				resp.setHeader("ExpiresActive", "on");
 				resp.setHeader("ExpiresDefault", "now");
 				resp.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
-			}
-			if (requestUrl.contains(CACHE)) {
-				LOG.log(Level.INFO, "GWTPerfectCacheFilter.doFilter: requestUrl contains " + CACHE + "string.");
+			} else if (requestUrl.contains(CACHE)) {
+				LOG.info("GWTPerfectCacheFilter.doFilter: requestUrl contains '" + CACHE + "' string.");
 				resp.setHeader("ExpiresActive", "on");
 				resp.setHeader("ExpiresDefault", "now plus 1 year");
 			}
@@ -65,6 +70,6 @@ public class GWTPerfectCacheFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		LOG.log(Level.INFO, "GWTPerfectCacheFilter.destroy");
+		LOG.info("GWTPerfectCacheFilter.destroy");
 	}
 }

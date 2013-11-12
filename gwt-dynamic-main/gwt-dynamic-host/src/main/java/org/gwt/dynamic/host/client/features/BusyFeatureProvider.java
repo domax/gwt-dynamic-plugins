@@ -50,6 +50,10 @@ public class BusyFeatureProvider extends FeatureProvider<Boolean, Void>
 	@Override
 	public void call(Boolean busy, AsyncCallback<Void> callback) {
 		LOG.info("BusyFeatureProvider.call: busy=" + busy + "; count=" + count);
+		setBusy(busy);
+	}
+
+	public void setBusy(boolean busy) {
 		if (busy) {
 			if (count++ > 0) return;
 		} else {
@@ -57,7 +61,7 @@ public class BusyFeatureProvider extends FeatureProvider<Boolean, Void>
 		}
 		fireEvent(new BusyEvent(busy));
 	}
-
+	
 	public boolean isBusy() {
 		return count > 0;
 	}

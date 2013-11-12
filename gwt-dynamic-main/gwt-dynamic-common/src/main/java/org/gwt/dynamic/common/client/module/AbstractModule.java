@@ -35,14 +35,14 @@ public abstract class AbstractModule implements EntryPoint {
 	@Override
 	public final void onModuleLoad() {
 		LOG.info("AbstractModule.onModuleLoad: moduleName=" + GWT.getModuleName());
-		ScriptInjector.fromUrl(GWT.getModuleName() + "/config.js")
+		ScriptInjector.fromUrl(GWT.getModuleBaseURL() + "/config.js")
 				.setRemoveTag(true)
 				.setWindow(ScriptInjector.TOP_WINDOW)
 				.setCallback(new Callback<Void, Exception>() {
 
 					@Override
 					public void onSuccess(Void result) {
-						LOG.info("AbstractModule.onModuleLoad#fromUrl#onSuccess: ");
+						LOG.info("AbstractModule.onModuleLoad#fromUrl#onSuccess");
 						onModuleConfigured();
 					}
 
@@ -59,5 +59,5 @@ public abstract class AbstractModule implements EntryPoint {
 		new SimpleFeatureConsumer<String, Void>(MODULE_HOST, FEATURE_MODULE_READY).call(GWT.getModuleName(), null);
 	}
 
-	public abstract void onModuleConfigured();
+	protected abstract void onModuleConfigured();
 }

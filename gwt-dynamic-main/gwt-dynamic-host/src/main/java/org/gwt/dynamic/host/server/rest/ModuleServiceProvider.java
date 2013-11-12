@@ -35,8 +35,8 @@ import org.gwt.dynamic.host.shared.services.ModuleService;
 public class ModuleServiceProvider extends AbstractServiceProvider implements ModuleService {
 
 	private static final Logger LOG = Logger.getLogger(ModuleServiceProvider.class.getName());
-
 	private static final String PKEY_MODULES = "modules";
+	
 	private final ObjectMapper mapper = new ObjectMapper();
 
 	@GET

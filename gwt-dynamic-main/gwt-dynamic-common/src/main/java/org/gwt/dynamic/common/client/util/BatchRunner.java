@@ -24,8 +24,8 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * This class allows to run any amount (including 0) of asynchronous commands at once. When last command finishes,
- * {@link #onFinish()} method is fired. So, the typical usage of this class is like that:
+ * This class allows to run any amount (including 0) of asynchronous commands at once or sequentially. When last command
+ * finishes, {@link #onFinish()} method is fired. So, the typical usage of this class is like that:
  * 
  * <pre>
  * <code>
@@ -69,6 +69,23 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public abstract class BatchRunner {
 
 	private static final Logger LOG = Logger.getLogger(BatchRunner.class.getName());
+
+	/**
+	 * Defines the command processing modes that {@link BatchRunner} supports.
+	 */
+	public enum Mode {
+
+		/**
+		 * Batch runner will try to launch all commands in queue at once, in parallel if possible.
+		 */
+		PARALLEL,
+
+		/**
+		 * Batch runner will try to launch commands in order they placed in queue. Commands are processed sequentially -
+		 * next command will wait while previous one will be finished.
+		 */
+		SEQUENTIAL
+	}
 	
 	/**
 	 * Defines {@link BatchRunner}'s command that should be invoked in parallel.
@@ -128,11 +145,23 @@ public abstract class BatchRunner {
 		}
 	}
 	
-	private List<Command> commands = new ArrayList<Command>();
+	private final List<Command> commands = new ArrayList<Command>();
+	private final List<Throwable> errors = new ArrayList<Throwable>();
 	private boolean running;
 	private int startSize;
-	private List<Throwable> errors = new ArrayList<Throwable>();
+	private final Mode mode;
 
+	/**
+	 * Creates batch runner with default mode {@link Mode#PARALLEL}.
+	 */
+	public BatchRunner() {
+		this(null);
+	}
+
+	public BatchRunner(Mode mode) {
+		this.mode = mode == null ? Mode.PARALLEL : mode;
+	}
+	
 	/**
 	 * Pushes new async command into runner. If runner is already started then command is run instantly, otherwise it just
 	 * inserted into queue and waits for {@link BatchRunner#run()} invocation.
@@ -144,13 +173,14 @@ public abstract class BatchRunner {
 		commands.add(command);
 		if (running) {
 			++startSize;
-			Scheduler.get().scheduleDeferred(new CommandAsyncCallback(command));
+			if (Mode.PARALLEL.equals(mode))
+				Scheduler.get().scheduleDeferred(new CommandAsyncCallback(command));
 		}
 		return this;
 	}
 	
 	/**
-	 * Starts all commands in queue. Does nothing if process is running.
+	 * Starts commands in queue. Does nothing if process is running.
 	 */
 	public void run() {
 		LOG.info("BatchRunner.run: running=" + running);
@@ -162,8 +192,15 @@ public abstract class BatchRunner {
 		}
 		running = true;
 		startSize = commands.size();
-		for (Command command : commands)
-			Scheduler.get().scheduleDeferred(new CommandAsyncCallback(command));
+		switch (mode) {
+			case PARALLEL:
+				for (Command command : commands)
+					Scheduler.get().scheduleDeferred(new CommandAsyncCallback(command));
+				break;
+			case SEQUENTIAL:
+				Scheduler.get().scheduleDeferred(new CommandAsyncCallback(commands.get(0)));
+				break;
+		}
 	}
 
 	/**
@@ -216,6 +253,7 @@ public abstract class BatchRunner {
 		if (commands.isEmpty()) {
 			running = false;
 			onFinish();
-		}
+		} else if (Mode.SEQUENTIAL.equals(mode))
+			Scheduler.get().scheduleDeferred(new CommandAsyncCallback(commands.get(0)));
 	}
 }
