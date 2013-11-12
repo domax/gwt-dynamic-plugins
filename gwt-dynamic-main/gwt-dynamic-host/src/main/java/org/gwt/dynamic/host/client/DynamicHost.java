@@ -66,7 +66,7 @@ public class DynamicHost implements EntryPoint {
 						onModulesLoaded(moduleReadyFeatureProvider.getReadyModules());
 					}
 				});
-				ModuleLoader.INSTANCE.load("", modules);
+				ModuleLoader.INSTANCE.load(modules);
 			}
 
 			@Override

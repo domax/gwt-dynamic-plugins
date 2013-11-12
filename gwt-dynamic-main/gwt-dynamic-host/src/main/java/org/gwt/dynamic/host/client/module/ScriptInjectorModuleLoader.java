@@ -28,12 +28,11 @@ public class ScriptInjectorModuleLoader implements ModuleLoader {
 	private static final Logger LOG = Logger.getLogger(ScriptInjectorModuleLoader.class.getName());
 
 	@Override
-	public void load(String urlBase, List<ModuleBean> modules) {
-		LOG.info("ScriptInjectorModuleLoader.load: urlBase=" + urlBase + "; modules=" + modules);
+	public void load(List<ModuleBean> modules) {
+		LOG.info("ScriptInjectorModuleLoader.load: modules=" + modules);
 		if (Utils.isEmpty(modules)) return;
 		for (ModuleBean module : modules)
-			ScriptInjector.fromUrl(urlBase
-					+ module.getUrl() + "/" + module.getName() + "/" + module.getName() + ".nocache.js")
+			ScriptInjector.fromUrl(module.getUrl() + "/" + module.getName() + "/" + module.getName() + ".nocache.js")
 					.setRemoveTag(true)
 					.setWindow(ScriptInjector.TOP_WINDOW)
 					.inject();

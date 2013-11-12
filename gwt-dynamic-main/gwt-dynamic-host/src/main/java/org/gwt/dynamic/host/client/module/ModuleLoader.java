@@ -25,5 +25,5 @@ public interface ModuleLoader {
 
 	public static final ModuleLoader INSTANCE = GWT.create(ModuleLoader.class);
 
-	void load(String urlBase, List<ModuleBean> modules);
+	void load(List<ModuleBean> modules);
 }
