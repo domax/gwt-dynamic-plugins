@@ -105,12 +105,12 @@ public abstract class BatchRunner {
 
 		@Override
 		public void onSuccess(Void result) {
-			LOG.info("BatchRunner.CommandLog");
+			LOG.info("BatchRunner.CommandSimple.onSuccess");
 		}
 
 		@Override
 		public void onFailure(Throwable caught) {
-			LOG.severe("BatchRunner.CommandLog: " + caught.getMessage());
+			LOG.severe("BatchRunner.CommandSimple.onFailure: " + caught.getMessage());
 		}
 	}
 	
@@ -160,6 +160,7 @@ public abstract class BatchRunner {
 
 	public BatchRunner(Mode mode) {
 		this.mode = mode == null ? Mode.PARALLEL : mode;
+		LOG.info("BatchRunner: mode=" + mode);
 	}
 	
 	/**

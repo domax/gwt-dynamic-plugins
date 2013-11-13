@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 import org.gwt.dynamic.host.client.features.BusyFeatureProvider;
 import org.gwt.dynamic.host.client.features.ModuleReadyFeatureProvider;
+import org.gwt.dynamic.host.client.features.NavigatorItemFeatureConsumer;
 import org.gwt.dynamic.host.client.main.MainLayout;
 import org.gwt.dynamic.host.client.module.ModuleLoader;
 import org.gwt.dynamic.host.client.services.ModuleServiceConsumer;
@@ -29,6 +30,7 @@ import org.gwt.dynamic.host.shared.beans.ModuleBean;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
@@ -38,11 +40,12 @@ public class DynamicHost implements EntryPoint {
 	private static final int LOAD_TIMEOUT = 10;
 	
 	private final BusyFeatureProvider busyFeatureProvider = new BusyFeatureProvider();
+	private MainLayout mainLayout;
 
 	@Override
 	public void onModuleLoad() {
 		LOG.info("DynamicHost.onModuleLoad");
-		MainLayout mainLayout = new MainLayout();
+		mainLayout = new MainLayout();
 		busyFeatureProvider.addBusyHandler(mainLayout);
 		RootLayoutPanel.get().add(mainLayout);
 		loadModules();
@@ -80,6 +83,18 @@ public class DynamicHost implements EntryPoint {
 	
 	private void onModulesLoaded(List<ModuleBean> modules) {
 		LOG.info("DynamicHost.onModulesLoaded: modules=" + modules);
-		
+		new NavigatorItemFeatureConsumer(modules).call(new AsyncCallback<List<SafeHtml>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				LOG.log(Level.SEVERE, "DynamicHost.onModulesLoaded#NavigatorItemFeatureConsumer.call#onFailure:", caught);
+			}
+
+			@Override
+			public void onSuccess(List<SafeHtml> result) {
+				LOG.info("DynamicHost.onModulesLoaded#NavigatorItemFeatureConsumer.call#onSuccess");
+				mainLayout.setNavigationItems(result);
+			}
+		});
 	}
 }

@@ -17,6 +17,7 @@ package org.gwt.dynamic.module.foo.client;
 
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.common.client.features.NavigatorItemFeatureProvider;
 import org.gwt.dynamic.common.client.module.AbstractModule;
 
 public class DynamicModuleFoo extends AbstractModule {
@@ -26,6 +27,11 @@ public class DynamicModuleFoo extends AbstractModule {
 	@Override
 	protected void onModuleConfigured() {
 		LOG.info("DynamicModuleFoo.onModuleConfigured");
+		
+		new NavigatorItemFeatureProvider(
+				"Module Foo", 
+				"Invokes Module Foo stuff from dynamcally loaded plugin, that is deployed as separate webapp");
+		
 		reportIsReady();
 	}
 }

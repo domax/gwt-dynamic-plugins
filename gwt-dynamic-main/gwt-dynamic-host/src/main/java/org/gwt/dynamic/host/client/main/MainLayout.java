@@ -18,6 +18,8 @@ package org.gwt.dynamic.host.client.main;
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
 import static com.google.gwt.dom.client.BrowserEvents.KEYDOWN;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.gwt.dynamic.common.client.services.BusyEvent;
@@ -25,6 +27,7 @@ import org.gwt.dynamic.common.client.services.BusyEvent.BusyHandler;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -36,6 +39,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 
 public class MainLayout extends Composite implements BusyHandler {
 
@@ -51,16 +55,20 @@ public class MainLayout extends Composite implements BusyHandler {
 	@UiField Label spinner;
 	@UiField CaptionPanel centerPanel;
 	@UiField SimplePanel contentPanel;
-	@UiField(provided = true) CellList<Object> cellList = 
-			new CellList<Object>(new AbstractCell<Object>(CLICK, KEYDOWN) {
-		@Override
-		public void render(Context context, Object value, SafeHtmlBuilder sb) {
-			// TODO
-		}
-	});
+	@UiField(provided = true) CellList<SafeHtml> cellList =
+			new CellList<SafeHtml>(new AbstractCell<SafeHtml>(CLICK, KEYDOWN) {
+				@Override
+				public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
+					sb.append(value);
+				}
+			});
+	
+	private final ListDataProvider<SafeHtml> dataProvider;
 
 	public MainLayout() {
 		initWidget(uiBinder.createAndBindUi(this));
+		dataProvider = new ListDataProvider<SafeHtml>();
+		dataProvider.addDataDisplay(cellList);
 		LOG.info("MainLayout: instantiated");
 	}
 
@@ -68,5 +76,11 @@ public class MainLayout extends Composite implements BusyHandler {
 	public void onChange(BusyEvent event) {
 		LOG.info("MainLayout.onChange: event.busy=" + event.isBusy());
 		spinner.setStyleName("animate-spin", event.isBusy());
+	}
+	
+	public void setNavigationItems(List<SafeHtml> items) {
+		LOG.info("MainLayout.setNavigationItems: items=" + items);
+		if (items == null) items = new ArrayList<SafeHtml>();
+		dataProvider.setList(items);
 	}
 }
