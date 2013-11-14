@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.common.shared.Utils;
+
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -164,19 +166,21 @@ public abstract class BatchRunner {
 	}
 	
 	/**
-	 * Pushes new async command into runner. If runner is already started then command is run instantly, otherwise it just
-	 * inserted into queue and waits for {@link BatchRunner#run()} invocation.
+	 * Pushes new async command(s) into runner. If runner is already started then command is run instantly, otherwise it
+	 * just inserted into queue and waits for {@link BatchRunner#run()} invocation.
 	 */
-	public BatchRunner add(Command command) {
+	public BatchRunner add(Command... command) {
 		LOG.info("BatchRunner.add");
-		if (command == null)
-			throw new IllegalArgumentException("Command cannot be a null");
-		commands.add(command);
-		if (running) {
-			++startSize;
-			if (Mode.PARALLEL.equals(mode))
-				Scheduler.get().scheduleDeferred(new CommandAsyncCallback(command));
-		}
+		if (!Utils.isEmpty(command))
+			for (Command cmd : command) {
+				commands.add(cmd);
+				if (running) {
+					++startSize;
+					if (Mode.PARALLEL.equals(mode))
+						Scheduler.get().scheduleDeferred(new CommandAsyncCallback(cmd));
+				}
+			}
+		else LOG.warning("BatchRunner.add: attempt to add an empty command set");
 		return this;
 	}
 	
