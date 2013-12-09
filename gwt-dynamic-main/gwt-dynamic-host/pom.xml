@@ -62,7 +62,6 @@
 				<configuration>
 					<!-- See detailed explanation here: http://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin -->
 					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<contextPath>/${project.artifactId}</contextPath>
 					<war>${basedir}/target/${project.build.finalName}</war>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
