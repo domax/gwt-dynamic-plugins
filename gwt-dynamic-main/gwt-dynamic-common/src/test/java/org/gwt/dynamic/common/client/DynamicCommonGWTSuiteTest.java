@@ -20,6 +20,7 @@ import junit.framework.TestSuite;
 
 import org.gwt.dynamic.common.client.features.FeatureTestGWT;
 import org.gwt.dynamic.common.client.json.JsonHelperTestGWT;
+import org.gwt.dynamic.common.client.util.BatchRunnerTestGWT;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
 
@@ -29,6 +30,7 @@ public class DynamicCommonGWTSuiteTest extends GWTTestSuite {
 		TestSuite suite = new GWTTestSuite();
 		suite.addTestSuite(JsonHelperTestGWT.class);
 		suite.addTestSuite(FeatureTestGWT.class);
+		suite.addTestSuite(BatchRunnerTestGWT.class);
 		return suite;
 	}
 }
