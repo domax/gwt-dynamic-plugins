@@ -27,7 +27,8 @@ For this sample project you have to specify the following GWT modules for `gwt-d
 1. Run server-side. You can do that in 2 ways:
 
 	* Using built-in Jetty servlet-container - it is simplest and fastest way. Run in separate console:
-	  ```
+
+		```
 		cd gwt-dynamic-solid
 		mvn -Pserver clean prepare-package jetty:run-exploded
 		```
@@ -39,30 +40,33 @@ For this sample project you have to specify the following GWT modules for `gwt-d
 			cd gwt-dynamic-solid
 			mvn -Pserver clean prepare-package
 			```
+		
 		- Create new Devmode configuration or copy it if you've got it already.
 		- Add new item into classpath: `gwt-dynamic-solid/src/main/profiles/server/resources`
 		- Place this item to the upper/first position in the classpath.
 		- Run this Devmode configuration.
 
 2. Run Host webapp in Superdev mode in separate console (pre-configured to use port `9999`):
-```
-cd gwt-dynamic-host
-mvn gwt:run-codeserver
-```
+	```
+	cd gwt-dynamic-host
+	mvn gwt:run-codeserver
+	```
 
 3. Run each dynamic module webapps in Superdev mode. For this sample just one module is available yet.
-	 So, run in separate console (pre-configured to use port `9998`):
-```
-cd gwt-dynamic-module-foo
-mvn gwt:run-codeserver
-```
+   So, run in separate console (pre-configured to use port `9998`):
+	```
+	cd gwt-dynamic-module-foo
+	mvn gwt:run-codeserver
+	```
 
 4. Open host webapp in browser (Chrome/Chromium is recommended): http://127.0.0.1:9999/DynamicHost/DynamicHost.html
 
 5. Add bookmarklets to in-place recompilation host and modules (it is optional and you may do it just once):
-	* Host webapp (port `9999`): `javascript:%7B%20window.__gwt_bookmarklet_params%20%3D%20%7B'server_url'%3A'http%3A%2F%2F127.0.0.1%3A9999%2F'%7D%3B%20var%20s%20%3D%20document.createElement('script')%3B%20s.src%20%3D%20'http%3A%2F%2F127.0.0.1%3A9999%2Fdev_mode_on.js'%3B%20void(document.getElementsByTagName('head')%5B0%5D.appendChild(s))%3B%7D)`
+	* Host webapp (port `9999`):
+		`javascript:%7B%20window.__gwt_bookmarklet_params%20%3D%20%7B'server_url'%3A'http%3A%2F%2F127.0.0.1%3A9999%2F'%7D%3B%20var%20s%20%3D%20document.createElement('script')%3B%20s.src%20%3D%20'http%3A%2F%2F127.0.0.1%3A9999%2Fdev_mode_on.js'%3B%20void(document.getElementsByTagName('head')%5B0%5D.appendChild(s))%3B%7D)`
 
-	* Module webapp (port `9998`): `javascript:%7B%20window.__gwt_bookmarklet_params%20%3D%20%7B'server_url'%3A'http%3A%2F%2F127.0.0.1%3A9999%2F'%7D%3B%20var%20s%20%3D%20document.createElement('script')%3B%20s.src%20%3D%20'http%3A%2F%2F127.0.0.1%3A9999%2Fdev_mode_on.js'%3B%20void(document.getElementsByTagName('head')%5B0%5D.appendChild(s))%3B%7D)`
+	* Module webapp (port `9998`):
+		`javascript:%7B%20window.__gwt_bookmarklet_params%20%3D%20%7B'server_url'%3A'http%3A%2F%2F127.0.0.1%3A9999%2F'%7D%3B%20var%20s%20%3D%20document.createElement('script')%3B%20s.src%20%3D%20'http%3A%2F%2F127.0.0.1%3A9999%2Fdev_mode_on.js'%3B%20void(document.getElementsByTagName('head')%5B0%5D.appendChild(s))%3B%7D)`
 
 DONE
 ----
