@@ -34,6 +34,7 @@ For this sample project you have to specify the following GWT modules for `gwt-d
 
 	* Using devmode for `gwt-dynamic-solid` Maven module - this way allows you to debug server-side code:
 		- Prepare stuff for Devmode:
+
 			```
 			cd gwt-dynamic-solid
 			mvn -Pserver clean prepare-package
