@@ -25,14 +25,12 @@ For this sample project you have to specify the following GWT modules for `gwt-d
 ### Superdev mode
 
 1. Run server-side. You can do that in 2 ways:
-
 	* Using built-in Jetty servlet-container - it is simplest and fastest way. Run in separate console:
 
 		```
 		cd gwt-dynamic-solid
 		mvn -Pserver clean prepare-package jetty:run-exploded
 		```
-
 	* Using devmode for `gwt-dynamic-solid` Maven module - this way allows you to debug server-side code:
 		- Prepare stuff for Devmode:
 
@@ -40,12 +38,10 @@ For this sample project you have to specify the following GWT modules for `gwt-d
 			cd gwt-dynamic-solid
 			mvn -Pserver clean prepare-package
 			```
-		
 		- Create new Devmode configuration or copy it if you've got it already.
 		- Add new item into classpath: `gwt-dynamic-solid/src/main/profiles/server/resources`
 		- Place this item to the upper/first position in the classpath.
 		- Run this Devmode configuration.
-
 2. Run Host webapp in Superdev mode in separate console (pre-configured to use port `9999`):
 	```
 	cd gwt-dynamic-host
