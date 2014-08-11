@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,13 +15,8 @@
  */
 package org.gwt.dynamic.host.shared.services;
 
-import java.util.List;
+public interface ModuleServiceConst {
 
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
-
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
-public interface ModuleServiceAsync {
+	String PKEY_MODULES = "modules";
 	
-	void getModules(AsyncCallback<List<ModuleBean>> callback);
 }

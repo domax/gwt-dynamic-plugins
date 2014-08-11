@@ -29,20 +29,18 @@ import org.codehaus.jackson.type.TypeReference;
 import org.gwt.dynamic.common.server.rest.AbstractServiceProvider;
 import org.gwt.dynamic.common.shared.Utils;
 import org.gwt.dynamic.host.shared.beans.ModuleBean;
-import org.gwt.dynamic.host.shared.services.ModuleService;
+import org.gwt.dynamic.host.shared.services.ModuleServiceConst;
 
 @Path("/")
-public class ModuleServiceProvider extends AbstractServiceProvider implements ModuleService {
+public class ModuleServiceProvider extends AbstractServiceProvider implements ModuleServiceConst {
 
 	private static final Logger LOG = Logger.getLogger(ModuleServiceProvider.class.getName());
-	private static final String PKEY_MODULES = "modules";
 	
 	private final ObjectMapper mapper = new ObjectMapper();
 
 	@GET
-	@Path("/modules")
+	@Path("/" + PKEY_MODULES)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Override
 	public List<ModuleBean> getModules() {
 		String modules = PROPS.getProperty(PKEY_MODULES);
 		if (Utils.isHollow(modules)) return null;

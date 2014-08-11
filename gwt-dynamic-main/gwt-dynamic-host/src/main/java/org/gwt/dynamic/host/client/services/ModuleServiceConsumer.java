@@ -21,12 +21,11 @@ import java.util.logging.Logger;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.gwt.dynamic.common.client.services.AbstractServiceConsumer;
 import org.gwt.dynamic.host.shared.beans.ModuleBean;
-import org.gwt.dynamic.host.shared.services.ModuleServiceAsync;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class ModuleServiceConsumer extends AbstractServiceConsumer<ModuleRestService> implements ModuleServiceAsync {
+public class ModuleServiceConsumer extends AbstractServiceConsumer<ModuleRestService> {
 	
 	private static final Logger LOG = Logger.getLogger(ModuleServiceConsumer.class.getName());
 	
@@ -42,7 +41,6 @@ public class ModuleServiceConsumer extends AbstractServiceConsumer<ModuleRestSer
 		LOG.info("ModuleServiceConsumer: instantiated");
 	}
 
-	@Override
 	public void getModules(AsyncCallback<List<ModuleBean>> callback) {
 		LOG.info("ModuleServiceConsumer.getModules");
 		new Requestor<List<ModuleBean>>() {

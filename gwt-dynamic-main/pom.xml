@@ -32,15 +32,17 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<gwtversion>2.5.1</gwtversion>
 		<gwtmaven>2.5.1</gwtmaven>
-		<!-- Most of time we deal with code as developers, so let's define defaults most comfortable for us -->
+		<!-- Most of time we deal with code as developers, so let's define defaults that are comfortable for us -->
 		<gwtc.loglevel>INFO</gwtc.loglevel>
 		<gwtc.disableClassMetadata>false</gwtc.disableClassMetadata>
 		<gwtc.style>PRETTY</gwtc.style>
 		<gwtc.enableClosureCompiler>false</gwtc.enableClosureCompiler>
 		<gwtc.compileReport>true</gwtc.compileReport>
 		<gwtc.disableCastChecking>true</gwtc.disableCastChecking>
+		<gwtc.codeServerPort>9997</gwtc.codeServerPort>
 		<app.module/>
 		<service.url>http://localhost:8888/${project.artifactId}/rest</service.url>
+		<env>dev</env>
 	</properties>
 
 	<scm>
@@ -63,6 +65,7 @@
 				<gwtc.enableClosureCompiler>true</gwtc.enableClosureCompiler>
 				<gwtc.compileReport>false</gwtc.compileReport>
 				<gwtc.disableCastChecking>false</gwtc.disableCastChecking>
+				<env>prod</env>
 			</properties>
 		</profile>
 
@@ -258,7 +261,7 @@
 					</modules>
 					<runTarget>index.html</runTarget>
 					<bindAddress>127.0.0.1</bindAddress>
-					<codeServerPort>9998</codeServerPort>
+					<codeServerPort>${gwtc.codeServerPort}</codeServerPort>
 					<codeServerWorkDir>${project.build.directory}</codeServerWorkDir>
 				</configuration>
 				<executions>

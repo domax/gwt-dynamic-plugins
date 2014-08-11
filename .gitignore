@@ -10,4 +10,4 @@ gwt-unitCache/
 .apt_generated/
 war/
 www-test/
-
+.externalToolBuilders/

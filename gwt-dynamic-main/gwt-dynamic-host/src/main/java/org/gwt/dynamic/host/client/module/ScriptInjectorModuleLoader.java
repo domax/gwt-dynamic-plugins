@@ -18,7 +18,7 @@ package org.gwt.dynamic.host.client.module;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.gwt.dynamic.common.shared.Utils;
+import static org.gwt.dynamic.common.shared.Utils.*;
 import org.gwt.dynamic.host.shared.beans.ModuleBean;
 
 import com.google.gwt.core.client.ScriptInjector;
@@ -30,11 +30,14 @@ public class ScriptInjectorModuleLoader implements ModuleLoader {
 	@Override
 	public void load(List<ModuleBean> modules) {
 		LOG.info("ScriptInjectorModuleLoader.load: modules=" + modules);
-		if (Utils.isEmpty(modules)) return;
-		for (ModuleBean module : modules)
-			ScriptInjector.fromUrl(module.getUrl() + "/" + module.getName() + "/" + module.getName() + ".nocache.js")
+		if (isEmpty(modules)) return;
+		for (ModuleBean module : modules) {
+			String url = module.getUrl();
+			if (!isEmpty(url) && !url.endsWith("/")) url += "/";
+			ScriptInjector.fromUrl(url + module.getName() + "/" + module.getName() + ".nocache.js")
 					.setRemoveTag(true)
 					.setWindow(ScriptInjector.TOP_WINDOW)
 					.inject();
+		}
 	}
 }

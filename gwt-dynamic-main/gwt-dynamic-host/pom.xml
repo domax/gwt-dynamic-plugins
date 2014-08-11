@@ -32,6 +32,7 @@
 
 	<properties>
 		<app.module>org.gwt.dynamic.host.DynamicHost_dev</app.module>
+		<gwtc.codeServerPort>9999</gwtc.codeServerPort>
 		<service.url>http://localhost:8888/rest</service.url>
 	</properties>
 	
@@ -54,7 +55,20 @@
 	</dependencies>
 	
 	<build>
+	
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/profiles/${env}/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+	
 		<plugins>
+		
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -77,6 +91,7 @@
 					</contextHandlers> 
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 	
