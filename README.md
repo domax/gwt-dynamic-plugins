@@ -16,7 +16,7 @@ How to Develop
 
 ### Developer mode
 
-Run `gwt-dynamic-solid` module in Devmode - but before make sure your Ant or Eclipse configuration for developer mode
+Run `gwt-dynamic-solid` module in Devmode - but before make sure your Eclipse or JIdea configuration for developer mode
 includes all modules you want to run together.
 For this sample project you have to specify the following GWT modules for `gwt-dynamic-solid` Devmode configuration:
 * `org.gwt.dynamic.host.DynamicHost_dev`
