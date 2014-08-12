@@ -121,6 +121,7 @@
 								<source>${basedir}/../gwt-dynamic-common/src/main/java</source>
 								<source>${basedir}/../gwt-dynamic-host/src/main/java</source>
 								<source>${basedir}/../gwt-dynamic-module-foo/src/main/java</source>
+								<source>${basedir}/../gwt-dynamic-module-bar/src/main/java</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -144,6 +145,10 @@
 					      	<filtering>true</filtering>
 					      	<directory>${basedir}/../gwt-dynamic-module-foo/src/main/resources</directory>
 					      </resource>
+					      <resource>
+					      	<filtering>true</filtering>
+					      	<directory>${basedir}/../gwt-dynamic-module-bar/src/main/resources</directory>
+					      </resource>
 							</resources>
 						</configuration>
 					</execution>
@@ -157,6 +162,7 @@
 					<modules>
 						<module>org.gwt.dynamic.host.DynamicHost_dev</module>
 						<module>org.gwt.dynamic.module.foo.DynamicModuleFoo_dev</module>
+						<module>org.gwt.dynamic.module.bar.DynamicModuleBar_dev</module>
 					</modules>
 				</configuration>
 			</plugin>

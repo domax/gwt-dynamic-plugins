@@ -29,7 +29,11 @@ class ProviderCallback<T> implements AsyncCallback<T> {
 	}
 
 	@Override
-	public final native void onFailure(Throwable caught) /*-{
+	public final void onFailure(Throwable caught) {
+		onFailure(caught != null ? caught.getMessage() : null);
+	}
+	
+	private final native void onFailure(String caught) /*-{
 		var f = this.@org.gwt.dynamic.common.client.features.ProviderCallback::failureFunction;
 		if (typeof f == "function") f(caught);
 	}-*/;

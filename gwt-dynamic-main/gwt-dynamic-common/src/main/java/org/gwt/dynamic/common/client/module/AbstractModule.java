@@ -35,7 +35,7 @@ public abstract class AbstractModule implements EntryPoint {
 	@Override
 	public final void onModuleLoad() {
 		LOG.info("AbstractModule.onModuleLoad: moduleName=" + GWT.getModuleName());
-		ScriptInjector.fromUrl(GWT.getModuleBaseURL() + "/config.js")
+		ScriptInjector.fromUrl(GWT.getModuleBaseURL() + "config.js")
 				.setRemoveTag(true)
 				.setWindow(ScriptInjector.TOP_WINDOW)
 				.setCallback(new Callback<Void, Exception>() {

@@ -1,5 +1,6 @@
-/*
- * Copyright 2013 Maxim Dominichenko
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -12,15 +13,16 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- */
-package org.gwt.dynamic.common.client.features;
+-->
+<!DOCTYPE module PUBLIC
+	"-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN"
+	"http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
 
-public interface FeatureCommonConst {
+<module>
+	<source path="client" />
+	<source path="shared" />
+	<public path="export" />
 
-	String MODULE_HOST = "gwt-dynamic-host";
-	
-	String FEATURE_MODULE_READY = "moduleReady";
-	String FEATURE_BUSY = "busy";
-	String FEATURE_NAVIGATOR_ITEM = "navigatorItem";
-	String FEATURE_CONTENT = "moduleContent";
-}
+	<add-linker name="xsiframe" />
+	<set-configuration-property name="CssResource.obfuscationPrefix" value="DMB" />
+</module>

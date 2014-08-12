@@ -17,12 +17,18 @@ package org.gwt.dynamic.module.foo.client;
 
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.common.client.features.ModuleContentFeatureProvider;
+import org.gwt.dynamic.common.client.features.ModuleContentFeatureProvider.ViewHandler;
 import org.gwt.dynamic.common.client.features.NavigatorItemFeatureProvider;
 import org.gwt.dynamic.common.client.module.AbstractModule;
+
+import com.google.gwt.user.client.ui.Widget;
 
 public class DynamicModuleFoo extends AbstractModule {
 
 	private static final Logger LOG = Logger.getLogger(DynamicModuleFoo.class.getName());
+	
+	private FooContentView contentView;
 	
 	@Override
 	protected void onModuleConfigured() {
@@ -32,6 +38,19 @@ public class DynamicModuleFoo extends AbstractModule {
 				"Module Foo", 
 				"Invokes Module Foo stuff from dynamcally loaded plugin, that is deployed as separate webapp");
 		
+		new ModuleContentFeatureProvider(new ViewHandler() {
+			@Override
+			public Widget getView() {
+				return getContentView();
+			}
+		});
+		
 		reportIsReady();
+	}
+	
+	private FooContentView getContentView() {
+		if (contentView == null)
+			contentView = new FooContentView();
+		return contentView;
 	}
 }

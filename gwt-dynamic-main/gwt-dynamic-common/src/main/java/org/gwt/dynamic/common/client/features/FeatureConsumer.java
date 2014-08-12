@@ -38,7 +38,7 @@ public abstract class FeatureConsumer<A, R> extends AbstractFeature<A, R> {
 		var f = $wnd.__features[moduleName][featureName];
 		f.callFunction.call(f.context, arguments,
 			function (error) {
-				callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onFailure(Ljava/lang/Throwable;).call(callback, error);
+				callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onFailure(Ljava/lang/String;).call(callback, error);
 			},
 			function (result) {
 				callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onSuccess(Ljava/lang/Object;).call(callback, result);

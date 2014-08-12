@@ -81,7 +81,7 @@ public class DynamicHost implements EntryPoint {
 		});
 	}
 	
-	private void onModulesLoaded(List<ModuleBean> modules) {
+	private void onModulesLoaded(final List<ModuleBean> modules) {
 		LOG.info("DynamicHost.onModulesLoaded: modules=" + modules);
 		new NavigatorItemFeatureConsumer(modules).call(new AsyncCallback<List<SafeHtml>>() {
 
@@ -93,7 +93,7 @@ public class DynamicHost implements EntryPoint {
 			@Override
 			public void onSuccess(List<SafeHtml> result) {
 				LOG.info("DynamicHost.onModulesLoaded#NavigatorItemFeatureConsumer.call#onSuccess");
-				mainLayout.setNavigationItems(result);
+				mainLayout.setNavigationItems(modules, result);
 			}
 		});
 	}

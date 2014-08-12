@@ -305,5 +305,6 @@
 		<module>gwt-dynamic-common</module>
 		<module>gwt-dynamic-host</module>
 		<module>gwt-dynamic-module-foo</module>
+		<module>gwt-dynamic-module-bar</module>
 	</modules>
 </project>

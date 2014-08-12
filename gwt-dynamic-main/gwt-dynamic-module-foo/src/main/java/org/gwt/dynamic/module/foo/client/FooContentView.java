@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -13,14 +13,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.common.client.features;
+package org.gwt.dynamic.module.foo.client;
 
-public interface FeatureCommonConst {
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
 
-	String MODULE_HOST = "gwt-dynamic-host";
-	
-	String FEATURE_MODULE_READY = "moduleReady";
-	String FEATURE_BUSY = "busy";
-	String FEATURE_NAVIGATOR_ITEM = "navigatorItem";
-	String FEATURE_CONTENT = "moduleContent";
+public class FooContentView extends Composite {
+
+	private static FooContentViewUiBinder uiBinder = GWT.create(FooContentViewUiBinder.class);
+
+	interface FooContentViewUiBinder extends UiBinder<Widget, FooContentView> {}
+
+	public FooContentView() {
+		initWidget(uiBinder.createAndBindUi(this));
+	}
 }

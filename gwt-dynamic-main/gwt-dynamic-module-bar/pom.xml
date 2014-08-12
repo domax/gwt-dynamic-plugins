@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,9 +19,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
-	<name>gwt-dynamic-module-foo</name>
+	<name>gwt-dynamic-module-bar</name>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>gwt-dynamic-module-foo</artifactId>
+	<artifactId>gwt-dynamic-module-bar</artifactId>
 	<packaging>war</packaging>
 	
 	<parent>
@@ -31,15 +31,15 @@
 	</parent>
 	
 	<properties>
-		<app.module>org.gwt.dynamic.module.foo.DynamicModuleFoo_dev</app.module>
-		<gwtc.codeServerPort>10000</gwtc.codeServerPort>
+		<app.module>org.gwt.dynamic.module.bar.DynamicModuleBar_dev</app.module>
+		<gwtc.codeServerPort>10001</gwtc.codeServerPort>
 	</properties>
 	
 	<profiles>
 		<profile>
 			<id>prod</id>
 			<properties>
-				<app.module>org.gwt.dynamic.module.foo.DynamicModuleFoo</app.module>
+				<app.module>org.gwt.dynamic.module.bar.DynamicModuleBar</app.module>
 				<service.url />
 			</properties>
 		</profile>

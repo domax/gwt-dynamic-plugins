@@ -15,9 +15,10 @@
  */
 package org.gwt.dynamic.common.client.features;
 
+import com.google.gwt.core.client.Callback;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-class ConsumerCallback<T> implements AsyncCallback<T> {
+class ConsumerCallback<T> implements Callback<T, String> {
 	
 	final private AsyncCallback<T> sourceCallback;
 	
@@ -26,8 +27,8 @@ class ConsumerCallback<T> implements AsyncCallback<T> {
 	}
 
 	@Override
-	public final void onFailure(Throwable caught) {
-		if (sourceCallback != null) sourceCallback.onFailure(caught);
+	public final void onFailure(String caught) {
+		if (sourceCallback != null) sourceCallback.onFailure(caught != null ? new RuntimeException(caught) : null);
 	}
 
 	@Override
