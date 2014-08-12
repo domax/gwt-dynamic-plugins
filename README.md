@@ -27,7 +27,7 @@ How to Develop
 	For this sample project you have to specify the following GWT modules for `gwt-dynamic-solid` Devmode configuration:
 	* `org.gwt.dynamic.host.DynamicHost_dev`
 	* `org.gwt.dynamic.module.foo.DynamicModuleFoo_dev`
-	* `org.gwt.dynamic.module.bwr.DynamicModuleBar_dev`
+	* `org.gwt.dynamic.module.bar.DynamicModuleBar_dev`
 
 ### Superdev mode
 
