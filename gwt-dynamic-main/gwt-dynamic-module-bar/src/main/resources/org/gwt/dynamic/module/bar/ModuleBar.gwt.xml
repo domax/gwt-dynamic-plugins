@@ -27,4 +27,5 @@
 
 	<add-linker name="xsiframe" />
 	<set-configuration-property name="CssResource.obfuscationPrefix" value="DMB" />
+	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 </module>

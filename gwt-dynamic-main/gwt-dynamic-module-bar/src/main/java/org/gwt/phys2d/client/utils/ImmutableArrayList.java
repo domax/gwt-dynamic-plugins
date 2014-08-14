@@ -51,6 +51,7 @@ public class ImmutableArrayList<E> extends ArrayList<E> implements Serializable 
 	 * 
 	 * @param elements Array of elements that should be added into this list.
 	 */
+	@SafeVarargs
 	public ImmutableArrayList(E... elements) {
 		super(Arrays.asList(elements));
 	}
@@ -144,7 +145,6 @@ public class ImmutableArrayList<E> extends ArrayList<E> implements Serializable 
 		throw new ImmutableArrayListException(exceptionMessage(RETAIN, elements));
 	}
 	
-	@SuppressWarnings("unchecked")
 	private String exceptionMessage(String action, E element) {
 		return exceptionMessage(action, element == null ? null : Arrays.asList(element));
 	}

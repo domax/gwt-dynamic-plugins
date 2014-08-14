@@ -2,10 +2,11 @@ package org.gwt.dynamic.common.client.features;
 
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.common.client.widgets.WrapPanel;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ModuleContentFeatureProvider extends FeatureProvider<Element, Void> implements FeatureCommonConst {
@@ -14,7 +15,6 @@ public class ModuleContentFeatureProvider extends FeatureProvider<Element, Void>
 	private final ViewHandler viewHandler;
 	
 	public static interface ViewHandler {
-		
 		Widget getView();
 	}
 	
@@ -43,7 +43,10 @@ public class ModuleContentFeatureProvider extends FeatureProvider<Element, Void>
 				if (callback != null) callback.onSuccess(null);
 				return;
 			}
-			HTMLPanel.wrap(contentElement).add(w);
+			
+//			contentElement.appendChild(w.getElement());
+			WrapPanel.wrap(contentElement).add(w);
+			
 			LOG.fine("ModuleContentFeatureProvider.call: moduleName=" + getModuleName() + "; content created");
 			if (callback != null) callback.onSuccess(null);
 		} catch (Exception e) {

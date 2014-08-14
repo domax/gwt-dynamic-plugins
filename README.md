@@ -14,6 +14,12 @@ How to Build and Run
 How to Develop
 --------------
 
+First of all, prepare whole project for development:
+
+```
+mvn clean install
+```
+
 ### Developer mode
 
 1. Prepare stuff for Devmode:
@@ -36,14 +42,14 @@ How to Develop
 
 		```
 		cd gwt-dynamic-solid
-		mvn -Pserver clean prepare-package jetty:run-exploded
+		mvn -Psuperdev clean prepare-package jetty:run-exploded
 		```
 	* Using devmode for `gwt-dynamic-solid` Maven module - this way allows you to debug server-side code:
 		- Prepare stuff for Devmode:
 
 			```
 			cd gwt-dynamic-solid
-			mvn -Pserver clean prepare-package
+			mvn -Psuperdev clean prepare-package
 			```
 		- Create new Devmode configuration or copy it if you've got it already.
 		- Add new item into classpath: `gwt-dynamic-solid/src/main/profiles/server/resources`
@@ -52,7 +58,7 @@ How to Develop
 2. Run Host webapp in Superdev mode in separate console (pre-configured to use port `9999`):
 	```
 	cd gwt-dynamic-host
-	mvn gwt:run-codeserver
+	mvn -Psuperdev gwt:run-codeserver
 	```
 
 3. Run each dynamic module webapps in Superdev mode. For this sample just 2 modules are available yet.
@@ -60,12 +66,12 @@ How to Develop
 	So, run in separate console `gwt-dynamic-module-foo` webapp (pre-configured to use port `10000`):
 	```
 	cd gwt-dynamic-module-foo
-	mvn gwt:run-codeserver
+	mvn -Psuperdev gwt:run-codeserver
 	```
 	Then, run in separate console `gwt-dynamic-module-bar` webapp (pre-configured to use port `10001`):
 	```
 	cd gwt-dynamic-module-bar
-	mvn gwt:run-codeserver
+	mvn -Psuperdev gwt:run-codeserver
 	```
 
 4. Open host webapp in browser (Chrome/Chromium is recommended): http://127.0.0.1:9999/DynamicHost/DynamicHost.html
@@ -99,6 +105,7 @@ DONE
    ([RestyGWT](http://restygwt.fusesource.org/)).
 7. Added possibility to develop/run/debug all the code as a solid project, but keeping it in the modules.
 	 Both GWT dev modes are supported: classic Devmode and new Superdev mode.
+8. Updated dependencies: Java 7, GWT 2.6.1, RestyGWT 1.4, Jetty 9.1.
 
 TODO
 ----
@@ -115,4 +122,4 @@ TODO
 5. Add full description of this project and tutorial into Wiki.
 6. Apply more or less nice CSS-es to make demo to be presentable.
 7. Add dynamic plugin archetype.
-8. Update dependencies: Java 7, gwt 2.6.1.
+8. Fix broken UTs for JSON serializer/deserializer and Feature Consumer/Provider

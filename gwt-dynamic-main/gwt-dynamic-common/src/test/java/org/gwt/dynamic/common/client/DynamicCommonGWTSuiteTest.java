@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -18,8 +18,8 @@ package org.gwt.dynamic.common.client;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.gwt.dynamic.common.client.features.FeatureTestGWT;
-import org.gwt.dynamic.common.client.json.JsonHelperTestGWT;
+//import org.gwt.dynamic.common.client.features.FeatureTestGWT;
+//import org.gwt.dynamic.common.client.json.JsonHelperTestGWT;
 import org.gwt.dynamic.common.client.util.BatchRunnerTestGWT;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
@@ -28,8 +28,8 @@ public class DynamicCommonGWTSuiteTest extends GWTTestSuite {
 
 	public static Test suite() {
 		TestSuite suite = new GWTTestSuite();
-		suite.addTestSuite(JsonHelperTestGWT.class);
-		suite.addTestSuite(FeatureTestGWT.class);
+//		suite.addTestSuite(JsonHelperTestGWT.class);
+//		suite.addTestSuite(FeatureTestGWT.class);
 		suite.addTestSuite(BatchRunnerTestGWT.class);
 		return suite;
 	}

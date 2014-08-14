@@ -58,10 +58,7 @@
 	<profiles>
 	
 		<profile>
-			<id>server</id>
-			<properties>
-				<env>server</env>
-			</properties>
+			<id>superdev</id>
 			<build>
 				<plugins>
 					<plugin>

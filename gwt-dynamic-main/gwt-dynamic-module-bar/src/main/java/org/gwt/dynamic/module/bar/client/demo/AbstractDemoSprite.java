@@ -18,7 +18,6 @@ package org.gwt.dynamic.module.bar.client.demo;
 import static org.gwt.phys2d.client.utils.VectorTools.EPSILON;
 import gwt.g2d.client.graphics.Surface;
 
-import org.gwt.phys2d.client.gameplay.AbstractGameScene;
 import org.gwt.phys2d.client.gameplay.sprites.AbstractSprite;
 import org.gwt.phys2d.client.gameplay.sprites.SpriteInitCallback;
 
@@ -29,11 +28,12 @@ public abstract class AbstractDemoSprite extends AbstractSprite {
 	}
 
 	protected Surface getSurface() {
-		return ((AbstractGameScene) getGameScene()).getSurface();
+		return getGameScene().getSurface();
 	}
 
-	protected CircleCollisionGameScene getScene() {
-		return (CircleCollisionGameScene) getGameScene();
+	@Override
+	public CircleCollisionGameScene getGameScene() {
+		return (CircleCollisionGameScene) super.getGameScene();
 	}
 	
 	@Override
@@ -43,9 +43,9 @@ public abstract class AbstractDemoSprite extends AbstractSprite {
 
 	@Override
 	public void update() {
-		float fps = getScene().getFps();
+		float fps = getGameScene().getFps();
 		if (fps < EPSILON)
-			fps = getScene().getDesiredFps();
+			fps = getGameScene().getDesiredFps();
 		getPosition().mutableAdd(getVelocity().scale(1d / fps));
 	}
 }

@@ -172,7 +172,6 @@ public class EventedArrayList<E> extends ArrayList<E> implements Serializable {
 		return new ListHandlerRegistration<E>(this, handler);
 	}
 	
-	@SuppressWarnings("unchecked")
 	private boolean fireEvents(Type type, E item) {
 		return fireEvents(type, item == null ? null : Arrays.asList(item));
 	}
