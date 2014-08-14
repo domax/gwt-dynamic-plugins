@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -41,7 +41,7 @@
 			<id>prod</id>
 			<properties>
 				<app.module>org.gwt.dynamic.host.DynamicHost</app.module>
-				<service.url/>
+				<service.url />
 			</properties>
 		</profile>
 	</profiles>

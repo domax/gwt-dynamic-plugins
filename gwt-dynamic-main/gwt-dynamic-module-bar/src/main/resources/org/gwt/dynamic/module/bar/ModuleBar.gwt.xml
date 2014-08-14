@@ -19,6 +19,8 @@
 	"http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
 
 <module>
+	<inherits name='org.gwt.phys2d.Phys2D' />
+
 	<source path="client" />
 	<source path="shared" />
 	<public path="export" />

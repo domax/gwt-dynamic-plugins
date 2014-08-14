@@ -18,33 +18,22 @@
 	xmlns:ui="urn:ui:com.google.gwt.uibinder" 
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	
-	<ui:style>
+	<ui:style type="org.gwt.dynamic.module.foo.client.FooContentView.InnerCss">
 		.scrollPanel {
 			width: 100%;
 			height: 100%;
 		}
+		
+		.loading {
+			color: grey;
+		}
+		
+		.error {
+			color: red;
+		}
 	</ui:style>
 	
 	<g:ScrollPanel addStyleNames="{style.scrollPanel}">
-		<g:HTMLPanel>
-			<h1>Foo Content</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in convallis tortor, nec euismod elit. Morbi sodales
-				dolor augue, id euismod nisi euismod quis. Pellentesque pellentesque dictum sem, nec condimentum ante placerat ut.
-				Integer ullamcorper molestie ante. Sed elit mi, ultrices eget bibendum porta, luctus eget quam. Donec lacinia leo sed
-				pulvinar iaculis. Nullam elementum, urna venenatis condimentum vestibulum, nisl nibh lobortis mi, a gravida ligula
-				urna non odio. Donec elementum semper diam non tempor. Quisque non feugiat elit. Nunc et condimentum sem. Vestibulum
-				scelerisque posuere justo sit amet lobortis. Aliquam eu magna a libero ultricies lacinia eget at enim. Aenean
-				placerat dolor dolor, id luctus odio suscipit in. Donec ligula dolor, pharetra vel nulla vel, placerat accumsan quam.
-				Suspendisse in lorem enim.</p>
-			<p>Fusce vel magna quis mi porttitor commodo sed sit amet libero. Sed mattis dolor quis magna elementum aliquet. Etiam
-				suscipit lectus quis velit pulvinar, bibendum hendrerit ante euismod. Integer condimentum, leo quis sollicitudin
-				malesuada, lorem nisi vestibulum odio, eget vestibulum augue odio et libero. Pellentesque rhoncus sapien sit amet mi
-				viverra, at varius dui condimentum. Sed quam massa, imperdiet sit amet lacinia nec, pulvinar ut libero. Fusce rhoncus
-				imperdiet ultrices. Pellentesque auctor, nisl sed rhoncus laoreet, arcu lorem laoreet velit, eget condimentum dui est
-				quis massa. Donec malesuada neque a ante dapibus, ac pellentesque urna commodo. Cras at rutrum dui, quis consequat
-				tortor. Ut fringilla nisi vitae varius pretium. Maecenas congue consectetur leo ac commodo. Nam eu neque a est
-				iaculis sollicitudin eget molestie risus. Pellentesque vitae neque sit amet mi tempus mattis sit amet at arcu. Fusce
-				egestas ligula et leo facilisis, sed tempor libero iaculis.</p>
-		</g:HTMLPanel>
+		<g:HTML ui:field="content" styleName="{style.loading}">Loading...</g:HTML>
 	</g:ScrollPanel>
 </ui:UiBinder>

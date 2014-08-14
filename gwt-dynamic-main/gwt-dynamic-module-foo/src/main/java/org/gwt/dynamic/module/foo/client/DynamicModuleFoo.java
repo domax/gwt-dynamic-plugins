@@ -19,9 +19,12 @@ import java.util.logging.Logger;
 
 import org.gwt.dynamic.common.client.features.ModuleContentFeatureProvider;
 import org.gwt.dynamic.common.client.features.ModuleContentFeatureProvider.ViewHandler;
-import org.gwt.dynamic.common.client.features.NavigatorItemFeatureProvider;
+import org.gwt.dynamic.common.client.features.ModuleInfoFeatureProvider;
 import org.gwt.dynamic.common.client.module.AbstractModule;
+import org.gwt.dynamic.module.foo.client.services.FooServiceConsumer;
+import org.gwt.dynamic.module.foo.shared.beans.FooData;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DynamicModuleFoo extends AbstractModule {
@@ -34,9 +37,9 @@ public class DynamicModuleFoo extends AbstractModule {
 	protected void onModuleConfigured() {
 		LOG.info("DynamicModuleFoo.onModuleConfigured");
 		
-		new NavigatorItemFeatureProvider(
-				"Module Foo", 
-				"Invokes Module Foo stuff from dynamcally loaded plugin, that is deployed as separate webapp");
+		new ModuleInfoFeatureProvider(
+				"Lorem Ipsum Service", 
+				"Generates \"Lorem ipsum\" text and loads it using REST web-services.");
 		
 		new ModuleContentFeatureProvider(new ViewHandler() {
 			@Override
@@ -49,8 +52,23 @@ public class DynamicModuleFoo extends AbstractModule {
 	}
 	
 	private FooContentView getContentView() {
-		if (contentView == null)
+		if (contentView == null) {
 			contentView = new FooContentView();
+			FooServiceConsumer.get().getFooData(new AsyncCallback<FooData>() {
+				
+				@Override
+				public void onSuccess(FooData result) {
+					LOG.info("DynamicModuleFoo.getContentView#getFooData#onSuccess: result=" + result);
+					contentView.setFooData(result);
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					LOG.severe("DynamicModuleFoo.getContentView#getFooData#onFailure: " + caught.getMessage());
+					contentView.setError("Error occurred during web-service call: " +  caught.getMessage());
+				}
+			});
+		}
 		return contentView;
 	}
 }

@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
- * Copyright 2013 Maxim Dominichenko
+/*
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -13,21 +12,12 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
--->
-<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder
-	xmlns:ui="urn:ui:com.google.gwt.uibinder">
+ */
+package org.gwt.phys2d.client.gameplay.sprites;
 
-	<ui:with field='title' type='java.lang.String'/>
-	<ui:with field='desc' type='java.lang.String'/>
-
-	<ui:style>
-		.item {
-			font-weight: bold;
-			margin: 0.5em 1em;
-		}
-	</ui:style>
-
-	<div class="{style.item}" title="{desc}"><ui:text from='{title}'/></div>
+public interface SpriteInitCallback {
 	
-</ui:UiBinder>
+	void onComplete(Sprite sprite);
+
+	void onError(Sprite sprite, Throwable error);
+}

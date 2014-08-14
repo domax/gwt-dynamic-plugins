@@ -34,15 +34,15 @@ public class ModuleContentFeatureProvider extends FeatureProvider<Element, Void>
 		LOG.info("ModuleContentFeatureProvider.call: moduleName=" + getModuleName());
 		try {
 			if (contentElement == null) throw new IllegalArgumentException("Content element should be specified");
+			if (viewHandler == null) throw new IllegalStateException("View Handler wasn't defined");
+			Widget w = viewHandler.getView();
+			if (w == null) throw new IllegalStateException("View wasn't defined");
+			
 			if (contentElement.getChildCount() > 0) {
 				LOG.fine("ModuleContentFeatureProvider.call: moduleName=" + getModuleName() + "; content exists");
 				if (callback != null) callback.onSuccess(null);
 				return;
 			}
-			if (viewHandler == null) throw new IllegalStateException("View Handler wasn't defined");
-			Widget w = viewHandler.getView();
-			if (w == null) throw new IllegalStateException("View wasn't defined");
-			
 			HTMLPanel.wrap(contentElement).add(w);
 			LOG.fine("ModuleContentFeatureProvider.call: moduleName=" + getModuleName() + "; content created");
 			if (callback != null) callback.onSuccess(null);

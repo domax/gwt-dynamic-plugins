@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,8 +15,6 @@
  */
 package org.gwt.dynamic.common.client.services;
 
-import static org.gwt.dynamic.common.client.features.FeatureCommonConst.FEATURE_BUSY;
-import static org.gwt.dynamic.common.client.features.FeatureCommonConst.MODULE_HOST;
 import static org.gwt.dynamic.common.shared.Utils.isHollow;
 
 import java.util.logging.Logger;
@@ -26,7 +24,7 @@ import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.Resource;
 import org.fusesource.restygwt.client.RestService;
 import org.fusesource.restygwt.client.RestServiceProxy;
-import org.gwt.dynamic.common.client.features.SimpleFeatureConsumer;
+import org.gwt.dynamic.common.client.features.BusyFeatureConsumer;
 import org.gwt.dynamic.common.client.services.BusyEvent.BusyHandler;
 import org.gwt.dynamic.common.client.services.BusyEvent.HasBusyHandlers;
 
@@ -40,8 +38,6 @@ public class AbstractServiceConsumer<R extends RestService> implements HasBusyHa
 	
 	private static final Logger LOG = Logger.getLogger(AbstractServiceConsumer.class.getName());
 	private static final String REST_ROOT_PATH = "rest";
-	private static final SimpleFeatureConsumer<Boolean, Void> BUSY_FEATURE_CONSUMER = 
-			new SimpleFeatureConsumer<Boolean, Void>(MODULE_HOST, FEATURE_BUSY);
 
 	protected abstract class Requestor<T> {
 		
@@ -86,13 +82,19 @@ public class AbstractServiceConsumer<R extends RestService> implements HasBusyHa
 	protected AbstractServiceConsumer(R rest) {
 		if (rest == null) throw new IllegalArgumentException("Rest service cannot be a null");
 		this.rest = rest;
-		((RestServiceProxy) this.rest).setResource(new Resource(getServiceUrl()));
+		RestServiceProxy restProxy = (RestServiceProxy) this.rest;
+		String serviceUrl = getServiceUrl();
+		String resourceUrl = restProxy.getResource().getUri();
+		if (resourceUrl.startsWith(GWT.getModuleBaseURL()))
+			serviceUrl += resourceUrl.substring(GWT.getModuleBaseURL().length() - 1);
+		LOG.info("AbstractServiceConsumer: resourceUrl=" + resourceUrl + "; serviceUrl=" + serviceUrl);
+		restProxy.setResource(new Resource(serviceUrl));
 	}
 
 	private void setBusy(boolean busy) {
 		LOG.info("AbstractServiceConsumer.setBusy: busy=" + busy);
 		fireEvent(new BusyEvent(busy));
-		BUSY_FEATURE_CONSUMER.call(busy, null);
+		BusyFeatureConsumer.get().call(busy);
 	}
 
 	@Override

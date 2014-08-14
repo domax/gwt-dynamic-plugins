@@ -39,6 +39,22 @@
 		<service.url>http://localhost:8888/rest</service.url>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>gwt-dynamic-module-bar-local-repo</id>
+			<url>file://${basedir}/../gwt-dynamic-module-bar/lib</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>gwt.g2d</groupId>
+			<artifactId>gwt-g2d</artifactId>
+			<version>v008</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
 	<profiles>
 	
 		<profile>
@@ -187,5 +203,5 @@
 
 		</plugins>
 
-	</build>	
+	</build>
 </project>

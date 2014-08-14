@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -17,29 +17,24 @@ package org.gwt.dynamic.common.client.features;
 
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.common.client.jso.ModuleInfo;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.uibinder.client.UiRenderer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class NavigatorItemFeatureProvider extends FeatureProvider<Void, String>
+public class ModuleInfoFeatureProvider extends FeatureProvider<Void, ModuleInfo>
 		implements FeatureCommonConst {
 
-	private static final Logger LOG = Logger.getLogger(NavigatorItemFeatureProvider.class.getName());
-	private static final NavigatorItemUiRenderer R = GWT.create(NavigatorItemUiRenderer.class);
-	
-	interface NavigatorItemUiRenderer extends UiRenderer {
-		void render(SafeHtmlBuilder sb, String title, String desc);
-	}
+	private static final Logger LOG = Logger.getLogger(ModuleInfoFeatureProvider.class.getName());
 
 	private final String title;
 	private final String desc;
 	
-	public NavigatorItemFeatureProvider(String title, String desc) {
+	public ModuleInfoFeatureProvider(String title, String desc) {
 		super(GWT.getModuleName());
 		this.title = title;
 		this.desc = desc;
-		LOG.info("NavigatorItemFeatureProvider: moduleName=" + getModuleName() + "; title=" + title + "; desc=" + desc);
+		LOG.info("ModuleInfoFeatureProvider: moduleName=" + getModuleName() + "; title=" + title + "; desc=" + desc);
 	}
 
 	@Override
@@ -48,12 +43,10 @@ public class NavigatorItemFeatureProvider extends FeatureProvider<Void, String>
 	}
 
 	@Override
-	public void call(Void arguments, AsyncCallback<String> callback) {
-		LOG.info("NavigatorItemFeatureProvider.call: moduleName=" + getModuleName());
+	public void call(Void arguments, AsyncCallback<ModuleInfo> callback) {
+		LOG.info("ModuleInfoFeatureProvider.call: moduleName=" + getModuleName());
 		try {
-			SafeHtmlBuilder builder = new SafeHtmlBuilder();
-			R.render(builder, title, desc);
-			callback.onSuccess(builder.toSafeHtml().asString());
+			callback.onSuccess(ModuleInfo.create(getModuleName(), title, desc));
 		} catch (Exception e) {
 			callback.onFailure(e);
 		}

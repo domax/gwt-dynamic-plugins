@@ -115,3 +115,4 @@ TODO
 5. Add full description of this project and tutorial into Wiki.
 6. Apply more or less nice CSS-es to make demo to be presentable.
 7. Add dynamic plugin archetype.
+8. Update dependencies: Java 7, gwt 2.6.1.

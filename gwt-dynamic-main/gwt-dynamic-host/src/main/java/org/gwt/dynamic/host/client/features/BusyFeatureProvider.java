@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,7 +28,7 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class BusyFeatureProvider extends FeatureProvider<Boolean, Void>
+public class BusyFeatureProvider extends FeatureProvider<String, Void>
 		implements FeatureCommonConst, HasBusyHandlers {
 
 	private static final Logger LOG = Logger.getLogger(BusyFeatureProvider.class.getName());
@@ -48,12 +48,12 @@ public class BusyFeatureProvider extends FeatureProvider<Boolean, Void>
 	}
 
 	@Override
-	public void call(Boolean busy, AsyncCallback<Void> callback) {
+	public void call(String busy, AsyncCallback<Void> callback) {
 		LOG.info("BusyFeatureProvider.call: busy=" + busy + "; count=" + count);
-		setBusy(busy);
+		setBusy(Boolean.parseBoolean(busy));
 	}
 
-	public void setBusy(boolean busy) {
+	private void setBusy(boolean busy) {
 		if (busy) {
 			if (count++ > 0) return;
 		} else {
@@ -62,10 +62,10 @@ public class BusyFeatureProvider extends FeatureProvider<Boolean, Void>
 		fireEvent(new BusyEvent(busy));
 	}
 	
-	public boolean isBusy() {
-		return count > 0;
-	}
-	
+//	public boolean isBusy() {
+//		return count > 0;
+//	}
+//	
 	@Override
 	public void fireEvent(GwtEvent<?> event) {
 		handlerManager.fireEvent(event);

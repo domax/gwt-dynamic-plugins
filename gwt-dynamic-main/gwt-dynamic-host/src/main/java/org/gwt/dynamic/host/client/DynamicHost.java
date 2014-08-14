@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,9 +19,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.common.client.features.BusyFeatureConsumer;
+import org.gwt.dynamic.common.client.jso.ModuleInfo;
 import org.gwt.dynamic.host.client.features.BusyFeatureProvider;
+import org.gwt.dynamic.host.client.features.ModuleInfoFeatureConsumer;
 import org.gwt.dynamic.host.client.features.ModuleReadyFeatureProvider;
-import org.gwt.dynamic.host.client.features.NavigatorItemFeatureConsumer;
 import org.gwt.dynamic.host.client.main.MainLayout;
 import org.gwt.dynamic.host.client.module.ModuleLoader;
 import org.gwt.dynamic.host.client.services.ModuleServiceConsumer;
@@ -30,7 +32,6 @@ import org.gwt.dynamic.host.shared.beans.ModuleBean;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
@@ -52,7 +53,7 @@ public class DynamicHost implements EntryPoint {
 	}
 	
 	private void loadModules() {
-		busyFeatureProvider.setBusy(true);
+		BusyFeatureConsumer.get().call(true);
 		ModuleServiceConsumer.get().getModules(new AsyncCallback<List<ModuleBean>>() {
 
 			@Override
@@ -65,7 +66,7 @@ public class DynamicHost implements EntryPoint {
 					public void onLoad(LoadEvent event) {
 						LOG.info("DynamicHost.onModuleLoad#ModuleReadyFeatureProvider.onLoad: unreadyModules=" 
 								+ moduleReadyFeatureProvider.getUnreadyModules());
-						busyFeatureProvider.setBusy(false);
+						BusyFeatureConsumer.get().call(false);
 						onModulesLoaded(moduleReadyFeatureProvider.getReadyModules());
 					}
 				});
@@ -75,7 +76,7 @@ public class DynamicHost implements EntryPoint {
 			@Override
 			public void onFailure(Throwable caught) {
 				LOG.log(Level.SEVERE, "DynamicHost.onModuleLoad#getModules#onFailure:", caught);
-				busyFeatureProvider.setBusy(false);
+				BusyFeatureConsumer.get().call(false);
 				onModulesLoaded(null);
 			}
 		});
@@ -83,7 +84,7 @@ public class DynamicHost implements EntryPoint {
 	
 	private void onModulesLoaded(final List<ModuleBean> modules) {
 		LOG.info("DynamicHost.onModulesLoaded: modules=" + modules);
-		new NavigatorItemFeatureConsumer(modules).call(new AsyncCallback<List<SafeHtml>>() {
+		new ModuleInfoFeatureConsumer(modules).call(new AsyncCallback<List<ModuleInfo>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -91,9 +92,9 @@ public class DynamicHost implements EntryPoint {
 			}
 
 			@Override
-			public void onSuccess(List<SafeHtml> result) {
+			public void onSuccess(List<ModuleInfo> result) {
 				LOG.info("DynamicHost.onModulesLoaded#NavigatorItemFeatureConsumer.call#onSuccess");
-				mainLayout.setNavigationItems(modules, result);
+				mainLayout.setModules(result);
 			}
 		});
 	}

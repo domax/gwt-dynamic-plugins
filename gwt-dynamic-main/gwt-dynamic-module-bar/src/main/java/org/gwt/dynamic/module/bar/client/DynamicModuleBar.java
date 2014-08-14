@@ -17,21 +17,50 @@ package org.gwt.dynamic.module.bar.client;
 
 import java.util.logging.Logger;
 
-import org.gwt.dynamic.common.client.features.NavigatorItemFeatureProvider;
+import org.gwt.dynamic.common.client.features.ModuleContentFeatureProvider;
+import org.gwt.dynamic.common.client.features.ModuleContentFeatureProvider.ViewHandler;
+import org.gwt.dynamic.common.client.features.ModuleInfoFeatureProvider;
 import org.gwt.dynamic.common.client.module.AbstractModule;
+import org.gwt.dynamic.module.bar.client.demo.CircleCollisionPane;
+
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.user.client.ui.Widget;
 
 public class DynamicModuleBar extends AbstractModule {
 
 	private static final Logger LOG = Logger.getLogger(DynamicModuleBar.class.getName());
 	
+	private CircleCollisionPane contentView;
+	
 	@Override
 	protected void onModuleConfigured() {
 		LOG.info("DynamicModuleBar.onModuleConfigured");
 		
-		new NavigatorItemFeatureProvider(
-				"Module Bar", 
-				"Invokes Module Bar stuff from dynamcally loaded plugin, that is deployed as separate webapp");
+		new ModuleInfoFeatureProvider(
+				"Circle Collisions Demo", 
+				"A demo of my gwt-phys2d project: gravitation + circle objects collisions. Simple but meditative ;)");
+
+		new ModuleContentFeatureProvider(new ViewHandler() {
+			@Override
+			public Widget getView() {
+				return getContentView();
+			}
+		});
 		
 		reportIsReady();
+	}
+	
+	private CircleCollisionPane getContentView() {
+		if (contentView == null) {
+			contentView = new CircleCollisionPane();
+			Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+				@Override
+				public void execute() {
+					contentView.start();
+				}
+			});
+		} else contentView.reset();
+		return contentView;
 	}
 }

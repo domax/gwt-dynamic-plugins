@@ -34,6 +34,13 @@
 		<app.module>org.gwt.dynamic.module.bar.DynamicModuleBar_dev</app.module>
 		<gwtc.codeServerPort>10001</gwtc.codeServerPort>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>local-repo</id>
+			<url>file://${basedir}/lib</url>
+		</repository>
+	</repositories>
 	
 	<profiles>
 		<profile>
@@ -50,6 +57,12 @@
 			<groupId>com.domax.gwt</groupId>
 			<artifactId>gwt-dynamic-common</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>gwt.g2d</groupId>
+			<artifactId>gwt-g2d</artifactId>
+			<version>v008</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	

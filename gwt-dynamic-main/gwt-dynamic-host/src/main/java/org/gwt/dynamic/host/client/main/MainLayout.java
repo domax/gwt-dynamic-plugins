@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -17,21 +17,19 @@ package org.gwt.dynamic.host.client.main;
 
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
 import static com.google.gwt.dom.client.BrowserEvents.KEYDOWN;
+import static org.gwt.dynamic.common.client.util.JsUtils.toStringJSO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.common.client.jso.ModuleInfo;
 import org.gwt.dynamic.common.client.services.BusyEvent;
 import org.gwt.dynamic.common.client.services.BusyEvent.BusyHandler;
 import org.gwt.dynamic.host.client.features.ModuleContentFeatureConsumer;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -63,35 +61,34 @@ public class MainLayout extends Composite implements BusyHandler {
 	@UiField Label spinner;
 	@UiField CaptionPanel centerPanel;
 	@UiField DeckLayoutPanel slidePanel;
-	@UiField(provided = true) CellList<SafeHtml> cellList =
-			new CellList<SafeHtml>(new AbstractCell<SafeHtml>(CLICK, KEYDOWN) {
+	@UiField(provided = true) CellList<ModuleInfo> cellList =
+			new CellList<ModuleInfo>(new AbstractCell<ModuleInfo>(CLICK, KEYDOWN) {
 				@Override
-				public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
-					sb.append(value);
+				public void render(Context context, ModuleInfo value, SafeHtmlBuilder sb) {
+					NavigatorItemRenderer.render(sb, value);
 				}
 			});
 	
-	private final ListDataProvider<SafeHtml> dataProvider;
-	private final Map<SafeHtml, ModuleBean> navigationMap = new HashMap<SafeHtml, ModuleBean>();
+	private final ListDataProvider<ModuleInfo> dataProvider;
 	private final ModuleContentFeatureConsumer moduleContentFeatureConsumer = 
 			new ModuleContentFeatureConsumer();
 
 	public MainLayout() {
 		initWidget(uiBinder.createAndBindUi(this));
-		dataProvider = new ListDataProvider<SafeHtml>();
+		dataProvider = new ListDataProvider<ModuleInfo>();
 		dataProvider.addDataDisplay(cellList);
-		final SingleSelectionModel<SafeHtml> selectionModel = new SingleSelectionModel<SafeHtml>();
+		final SingleSelectionModel<ModuleInfo> selectionModel = new SingleSelectionModel<ModuleInfo>();
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				final ModuleBean moduleBean = navigationMap.get(selectionModel.getSelectedObject());
-				LOG.info("MainLayout.cellList.selectionModel#onSelectionChange: moduleBean=" + moduleBean);
-				if (moduleBean != null) {
-					centerPanel.setCaptionText(moduleBean.getName());
+				final ModuleInfo moduleInfo = selectionModel.getSelectedObject();
+				LOG.info("MainLayout.cellList.selectionModel#onSelectionChange: moduleInfo=" + toStringJSO(moduleInfo));
+				if (moduleInfo != null) {
+					centerPanel.setCaptionText(moduleInfo.getCaption());
 					
 					HTML panel = null;
-					String id = "content" + moduleBean.getName();
+					String id = "content" + moduleInfo.getName();
 					for (int i = 0, l = slidePanel.getWidgetCount(); i < l; ++i) {
 						Widget w = slidePanel.getWidget(i);
 						if (id.equals(w.getElement().getId())) {
@@ -104,11 +101,11 @@ public class MainLayout extends Composite implements BusyHandler {
 						return;
 					}
 					final Widget showWidget = panel;
-					moduleContentFeatureConsumer.call(moduleBean.getName(), panel.getElement(), new AsyncCallback<Void>() {
+					moduleContentFeatureConsumer.call(moduleInfo.getName(), panel.getElement(), new AsyncCallback<Void>() {
 
 						@Override
 						public void onSuccess(Void result) {
-							LOG.info("MainLayout.moduleContentFeatureConsumer#onSuccess: moduleBean.name=" + moduleBean.getName());
+							LOG.info("MainLayout.moduleContentFeatureConsumer#onSuccess: moduleBean.name=" + moduleInfo.getName());
 							slidePanel.showWidget(showWidget);
 						}
 
@@ -130,18 +127,14 @@ public class MainLayout extends Composite implements BusyHandler {
 		spinner.setStyleName("animate-spin", event.isBusy());
 	}
 	
-	public void setNavigationItems(List<ModuleBean> modules, List<SafeHtml> items) {
-		LOG.info("MainLayout.setNavigationItems: modules=" + modules + "; items=" + items);
-		if (items == null) items = new ArrayList<SafeHtml>();
-		dataProvider.setList(items);
-		navigationMap.clear();
-		int i = 0;
+	public void setModules(List<ModuleInfo> modules) {
+		LOG.info("MainLayout.setModules: modules=" + modules);
+		if (modules == null) modules = new ArrayList<ModuleInfo>();
+		dataProvider.setList(modules);
 		slidePanel.clear();
-		for (SafeHtml item : items) {
-			ModuleBean moduleBean = modules.get(i++);
-			navigationMap.put(item, moduleBean);
+		for (ModuleInfo item : modules) {
 			HTML panel = new HTML();
-			panel.getElement().setId("content" + moduleBean.getName());
+			panel.getElement().setId("content" + item.getName());
 			slidePanel.add(panel);
 		}
 	}

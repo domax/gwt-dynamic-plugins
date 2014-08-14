@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,26 +15,27 @@
  */
 package org.gwt.dynamic.host.client.features;
 
+import static org.gwt.dynamic.common.client.util.JsUtils.toStringJSO;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import org.gwt.dynamic.common.client.features.FeatureCommonConst;
 import org.gwt.dynamic.common.client.features.FeatureConsumer;
+import org.gwt.dynamic.common.client.jso.ModuleInfo;
 import org.gwt.dynamic.common.client.util.BatchRunner;
 import org.gwt.dynamic.common.client.util.BatchRunner.CommandSimple;
 import org.gwt.dynamic.host.shared.beans.ModuleBean;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class NavigatorItemFeatureConsumer extends FeatureConsumer<Void, String> implements FeatureCommonConst {
+public class ModuleInfoFeatureConsumer extends FeatureConsumer<Void, ModuleInfo> implements FeatureCommonConst {
 
-	private static final Logger LOG = Logger.getLogger(NavigatorItemFeatureConsumer.class.getName());
+	private static final Logger LOG = Logger.getLogger(ModuleInfoFeatureConsumer.class.getName());
 	
 	private final List<ModuleBean> modules;
-	private final List<SafeHtml> navigatorItems = new ArrayList<SafeHtml>();
+	private final List<ModuleInfo> navigatorItems = new ArrayList<ModuleInfo>();
 	private String moduleName;
 
 	private class ItemCommand extends CommandSimple {
@@ -48,28 +49,29 @@ public class NavigatorItemFeatureConsumer extends FeatureConsumer<Void, String> 
 		@Override
 		public void run(final AsyncCallback<Void> callback) {
 			moduleName = module;
-			call(null, new AsyncCallback<String>() {
+			call(null, new AsyncCallback<ModuleInfo>() {
 
 				@Override
-				public void onSuccess(String result) {
-					LOG.info("NavigatorItemFeatureConsume.ItemCommand.run#call#onSuccess: result=" + result);
-					navigatorItems.add(SafeHtmlUtils.fromSafeConstant(result));
+				public void onSuccess(ModuleInfo result) {
+					LOG.info("NavigatorItemFeatureConsume.ItemCommand.run#call#onSuccess: result=" + toStringJSO(result));
+					navigatorItems.add(result);
 					callback.onSuccess(null);
 				}
 
 				@Override
 				public void onFailure(Throwable caught) {
 					LOG.severe("NavigatorItemFeatureConsume.ItemCommand.run#call#onFailure: " + caught.getMessage());
-					navigatorItems.add(SafeHtmlUtils.fromSafeConstant("<div></div>"));
-					callback.onFailure(caught);
+					navigatorItems.add(ModuleInfo.create(module, module, module));
+					callback.onSuccess(null);
+//					callback.onFailure(caught);
 				}
 			});
 		}
 	}
 	
-	public NavigatorItemFeatureConsumer(List<ModuleBean> modules) {
+	public ModuleInfoFeatureConsumer(List<ModuleBean> modules) {
 		this.modules = modules;
-		LOG.info("NavigatorItemFeatureConsumer: instantiated");
+		LOG.info("ModuleInfoFeatureConsumer: instantiated");
 	} 
 	
 	@Override
@@ -82,8 +84,8 @@ public class NavigatorItemFeatureConsumer extends FeatureConsumer<Void, String> 
 		return FEATURE_NAVIGATOR_ITEM;
 	}
 	
-	public void call(final AsyncCallback<List<SafeHtml>> callback) {
-		LOG.info("NavigatorItemFeatureConsumer.call: modules=" + modules);
+	public void call(final AsyncCallback<List<ModuleInfo>> callback) {
+		LOG.info("ModuleInfoFeatureConsumer.call: modules=" + modules);
 		navigatorItems.clear();
 		BatchRunner batchRunner = new BatchRunner(BatchRunner.Mode.SEQUENTIAL) {
 			@Override

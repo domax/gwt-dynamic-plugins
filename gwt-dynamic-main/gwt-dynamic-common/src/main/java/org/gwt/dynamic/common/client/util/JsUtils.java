@@ -152,5 +152,16 @@ public final class JsUtils {
 		return d != null ? new Date((long) d.getTime()) : null;
 	}
 	
+	/**
+	 * Returns given {@code jso} as JSON string.
+	 * 
+	 * @param jso
+	 *          A JavaScriptObject instance to be serialized
+	 * @return A serialized JSON string.
+	 */
+	public static native String toStringJSO(JavaScriptObject jso) /*-{
+		return JSON.stringify(jso);
+	}-*/;
+	
 	private JsUtils() {}
 }
