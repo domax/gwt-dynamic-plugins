@@ -169,7 +169,7 @@ You can easily create a new module using Maven archetype provided.
 	```
 	Just open each of them and add there new according object into JSON string. E.g. for `.../dev/.../ModuleServiceProvider.properties` file:
 	```
-	modules=[{"name":"DynamicModuleFoo","url":""},{"name":"DynamicModuleBar","url":""},{"name":"DynamicModuleSample","url":""}]
+	modules=[{"name":"DynamicModuleFoo","url":""}, {"name":"DynamicModuleBar","url":""}, {"name":"DynamicModuleSample","url":""}]
 	```
 	For `.../prod/.../ModuleServiceProvider.properties` file:
 	```
@@ -177,7 +177,7 @@ You can easily create a new module using Maven archetype provided.
 	```
 	and for `.../superdev/.../ModuleServiceProvider.properties` file:
 	```
-	modules=[{"name":"DynamicModuleFoo","url":"http://127.0.0.1:10000"}, {"name":"DynamicModuleBar","url":"http://127.0.0.1:10001"}, {"name":"DynamicModuleSample","url":"http://127.0.0.1:10002"}]
+	modules=[{"name":"DynamicModuleFoo","url":"http://127.0.0.1:10000"}, {"name":"DynamicModuleBar","url":"http://127.0.0.1:10001"}, {"name":"DynamicModuleSample","url":"http://127.0.0.1:10100"}]
 	```
 
 4. Go to the the **"How to Develop"** section above.
