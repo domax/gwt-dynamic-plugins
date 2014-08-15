@@ -152,7 +152,7 @@ You can easily create a new module using Maven archetype provided.
 		```
 		<resource>
 			<filtering>true</filtering>
-			<directory>${basedir}/../gwt-dynamic-module-bar/src/main/resources</directory>
+			<directory>${basedir}/../gwt-dynamic-module-sample/src/main/resources</directory>
 		</resource>
 		```
 			
