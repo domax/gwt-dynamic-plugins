@@ -149,28 +149,36 @@ You can easily create a new module using Maven archetype provided.
 			just add new `<source>${basedir}/../gwt-dynamic-module-sample/src/main/java</source>` element into
 			`<sources>` section.
 		- __build-helper-maven-plugin__: add new module source path into `add-resources` execution phase configuration - just add new `<resource>` element into `<sources>` section like that:
-		```
-		<resource>
-			<filtering>true</filtering>
-			<directory>${basedir}/../gwt-dynamic-module-sample/src/main/resources</directory>
-		</resource>
-		```
-			
+
+			```
+			<resource>
+				<filtering>true</filtering>
+				<directory>${basedir}/../gwt-dynamic-module-sample/src/main/resources</directory>
+			</resource>
+			```
 		- __gwt-maven-plugin__: add new module name into `<modules>` section:
 			`<module>org.gwt.dynamic.module.sample.DynamicModuleSample_dev</module>`
 3. Update web-service of host application that returns list of available plugins.
   To do that, you have to update all `ModuleServiceProvider.properties` files in `gwt-dynamic-host` and `gwt-dynamic-solid`
 	Maven modules. At this moment there are 4 such files:
-		gwt-dynamic-host/src/main/profiles/dev/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
-		gwt-dynamic-host/src/main/profiles/prod/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
-		gwt-dynamic-solid/src/main/profiles/dev/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
-		gwt-dynamic-solid/src/main/profiles/superdev/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
+	```
+	gwt-dynamic-host/src/main/profiles/dev/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
+	gwt-dynamic-host/src/main/profiles/prod/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
+	gwt-dynamic-solid/src/main/profiles/dev/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
+	gwt-dynamic-solid/src/main/profiles/superdev/resources/org/gwt/dynamic/host/server/rest/ModuleServiceProvider.properties
+	```
 	Just open each of them and add there new according object into JSON string. E.g. for `.../dev/.../ModuleServiceProvider.properties` file:
-		modules=[{"name":"DynamicModuleFoo","url":""},{"name":"DynamicModuleBar","url":""},{"name":"DynamicModuleSample","url":""}]
+	```
+	modules=[{"name":"DynamicModuleFoo","url":""},{"name":"DynamicModuleBar","url":""},{"name":"DynamicModuleSample","url":""}]
+	```
 	For `.../prod/.../ModuleServiceProvider.properties` file:
-		modules=[{"name":"DynamicModuleFoo","url":"gwt-dynamic-module-foo"}, {"name":"DynamicModuleBar","url":"gwt-dynamic-module-bar"}, {"name":"DynamicModuleSample","url":"gwt-dynamic-module-sample"}]
+	```
+	modules=[{"name":"DynamicModuleFoo","url":"gwt-dynamic-module-foo"}, {"name":"DynamicModuleBar","url":"gwt-dynamic-module-bar"}, {"name":"DynamicModuleSample","url":"gwt-dynamic-module-sample"}]
+	```
 	and for `.../superdev/.../ModuleServiceProvider.properties` file:
-		modules=[{"name":"DynamicModuleFoo","url":"http://127.0.0.1:10000"}, {"name":"DynamicModuleBar","url":"http://127.0.0.1:10001"}, {"name":"DynamicModuleSample","url":"http://127.0.0.1:10002"}]
+	```
+	modules=[{"name":"DynamicModuleFoo","url":"http://127.0.0.1:10000"}, {"name":"DynamicModuleBar","url":"http://127.0.0.1:10001"}, {"name":"DynamicModuleSample","url":"http://127.0.0.1:10002"}]
+	```
 
 4. Go to the the **"How to Develop"** section above.
 
