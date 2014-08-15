@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * Copyright 2013 Maxim Dominichenko
+ * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,8 +15,8 @@
  * the License.
 -->
 <project 
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
 	<name>gwt-dynamic-main</name>
@@ -38,7 +38,7 @@
 		<pirity.version>0.10</pirity.version>
 		<restygwt.version>1.4</restygwt.version>
 		<jersey.version>1.17.1</jersey.version>
-		<jetty.version>9.1.4.v20140401</jetty.version>
+		<jetty.version>8.1.13.v20130916</jetty.version>
 		
 		<!-- Most of time we deal with code as developers, so let's define defaults that are comfortable for us -->
 		<gwtc.loglevel>INFO</gwtc.loglevel>
