@@ -113,12 +113,13 @@ You can easily create a new module using Maven archetype provided.
 		-DarchetypeGroupId=com.domax.gwt \
 		-DarchetypeArtifactId=gwt-dynamic-module-archetype
 	```
-		It will ask you to enter specific values for new project: `groupId`, `artifactId`, `version` and `package`.
-		Let's assume, you've entered the following:
-			groupId: com.domax.gwt
-			artifactId: gwt-dynamic-module-sample
-			version: 0.0.1-SNAPSHOT
-			package: org.gwt.dynamic.module.sample
+	* It will ask you to enter specific values for new project: `groupId`, `artifactId`, `version` and `package`. Let's assume, you've entered the following:
+	```
+	groupId: com.domax.gwt
+	artifactId: gwt-dynamic-module-sample
+	version: 0.0.1-SNAPSHOT
+	package: org.gwt.dynamic.module.sample
+	```
 	* __Correct the created stuff__:
 		- _Superdev codeserver service port_: it is `10100` by default, but you have to define the unique port across all
 			your plugins and host app - open file `gwt-dynamic-module-sample/pom.xml` and change accordingly a property with
