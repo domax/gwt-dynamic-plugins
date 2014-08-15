@@ -148,14 +148,14 @@ You can easily create a new module using Maven archetype provided.
 		- __build-helper-maven-plugin__: add new module source path into `add-sources` execution phase configuration -
 			just add new `<source>${basedir}/../gwt-dynamic-module-sample/src/main/java</source>` element into
 			`<sources>` section.
-		- __build-helper-maven-plugin__: add new module source path into `add-resources` execution phase configuration -
-			just add new `<resource>` element into `<sources>` section like that:
-			```
-	    <resource>
-	    	<filtering>true</filtering>
-	    	<directory>${basedir}/../gwt-dynamic-module-bar/src/main/resources</directory>
-	    </resource>
-			```
+		- __build-helper-maven-plugin__: add new module source path into `add-resources` execution phase configuration - just add new `<resource>` element into `<sources>` section like that:
+		```
+		<resource>
+			<filtering>true</filtering>
+			<directory>${basedir}/../gwt-dynamic-module-bar/src/main/resources</directory>
+		</resource>
+		```
+			
 		- __gwt-maven-plugin__: add new module name into `<modules>` section:
 			`<module>org.gwt.dynamic.module.sample.DynamicModuleSample_dev</module>`
 3. Update web-service of host application that returns list of available plugins.
