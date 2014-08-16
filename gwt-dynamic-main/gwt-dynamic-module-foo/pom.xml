@@ -42,6 +42,13 @@
 				<app.module>org.gwt.dynamic.module.foo.DynamicModuleFoo</app.module>
 			</properties>
 		</profile>
+		<profile>
+			<id>appengine</id>
+			<properties>
+				<app.module>org.gwt.dynamic.module.foo.DynamicModuleFoo</app.module>
+				<service.url>http://gwt-dynamic-673-foo.appspot.com/rest</service.url>
+			</properties>
+		</profile>
 	</profiles>
 	
 	<dependencies>

@@ -30,6 +30,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<appengine.target.version>1.9.7</appengine.target.version>
 		
 		<gwtversion>2.6.1</gwtversion>
 		<gwtmaven>2.6.1</gwtmaven>
@@ -72,6 +73,19 @@
 			<id>prod</id>
 			<properties>
 				<env>prod</env>
+				<gwtc.disableClassMetadata>true</gwtc.disableClassMetadata>
+				<gwtc.style>OBF</gwtc.style>
+				<gwtc.enableClosureCompiler>true</gwtc.enableClosureCompiler>
+				<gwtc.compileReport>false</gwtc.compileReport>
+				<gwtc.disableCastChecking>false</gwtc.disableCastChecking>
+				<service.url>/${project.artifactId}/rest</service.url>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>appengine</id>
+			<properties>
+				<env>appengine</env>
 				<gwtc.disableClassMetadata>true</gwtc.disableClassMetadata>
 				<gwtc.style>OBF</gwtc.style>
 				<gwtc.enableClosureCompiler>true</gwtc.enableClosureCompiler>
@@ -327,6 +341,12 @@
 						</resource>
 					</webResources>
 				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>${appengine.target.version}</version>
 			</plugin>
 			
 		</plugins>

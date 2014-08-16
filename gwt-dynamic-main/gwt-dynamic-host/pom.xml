@@ -44,6 +44,13 @@
 				<service.url />
 			</properties>
 		</profile>
+		<profile>
+			<id>appengine</id>
+			<properties>
+				<app.module>org.gwt.dynamic.host.DynamicHost</app.module>
+				<service.url />
+			</properties>
+		</profile>
 	</profiles>
 	
 	<dependencies>

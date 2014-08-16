@@ -49,6 +49,13 @@
 				<app.module>org.gwt.dynamic.module.bar.DynamicModuleBar</app.module>
 			</properties>
 		</profile>
+		<profile>
+			<id>appengine</id>
+			<properties>
+				<app.module>org.gwt.dynamic.module.bar.DynamicModuleBar</app.module>
+				<service.url>http://gwt-dynamic-673-bar.appspot.com/rest</service.url>
+			</properties>
+		</profile>
 	</profiles>
 	
 	<dependencies>
