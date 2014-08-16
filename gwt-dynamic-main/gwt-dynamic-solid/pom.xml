@@ -155,6 +155,10 @@
 									<directory>${basedir}/../gwt-dynamic-host/src/main/resources</directory>
 								</resource>
 								<resource>
+									<filtering>false</filtering>
+									<directory>${basedir}/../gwt-dynamic-host/src/main/resources-bin</directory>
+								</resource>
+								<resource>
 									<filtering>true</filtering>
 									<directory>${basedir}/../gwt-dynamic-module-foo/src/main/resources</directory>
 								</resource>

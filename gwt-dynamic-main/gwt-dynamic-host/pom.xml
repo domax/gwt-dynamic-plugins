@@ -69,6 +69,10 @@
         <filtering>true</filtering>
       </resource>
       <resource>
+        <directory>src/main/resources-bin</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
         <directory>src/main/profiles/${env}/resources</directory>
         <filtering>true</filtering>
       </resource>
