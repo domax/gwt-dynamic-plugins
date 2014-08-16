@@ -31,71 +31,71 @@ import com.google.gwt.user.client.ui.Widget;
 public class WrapPanel extends ComplexPanel {
 
 	private static Set<Widget> widgetsToDetach = new HashSet<Widget>();
-  private static final AttachDetachException.Command maybeDetachCommand = new AttachDetachException.Command() {
-    @Override
+	private static final AttachDetachException.Command maybeDetachCommand = new AttachDetachException.Command() {
+		@Override
 		public void execute(Widget w) {
-      if (w.isAttached()) ((WrapPanel) w).onDetach();
-    }
-  };
-	
-  public static WrapPanel wrap(Element element) {
-  	if (widgetsToDetach == null) {
-  		widgetsToDetach = new HashSet<Widget>();
-  		hookWindowClosing();
-  	}
-  	WrapPanel panel = new WrapPanel(element);
-  	panel.onAttach();
-  	detachOnWindowClose(panel);
-    return panel;
-  }
-	
-  public static void detachNow(WrapPanel panel) {
-    assert widgetsToDetach.contains(panel) : "detachNow() called on a panel not currently in the detach list";
-    try {
-    	panel.onDetach();
-    } finally {
-      widgetsToDetach.remove(panel);
-    }
-  }
+			if (w.isAttached()) ((WrapPanel) w).onDetach();
+		}
+	};
 
-  public static void detachOnWindowClose(WrapPanel panel) {
-    assert !widgetsToDetach.contains(panel) : "detachOnUnload() called twice for the same panel";
-    widgetsToDetach.add(panel);
-  }
+	public static WrapPanel wrap(Element element) {
+		if (widgetsToDetach == null) {
+			widgetsToDetach = new HashSet<Widget>();
+			hookWindowClosing();
+		}
+		WrapPanel panel = new WrapPanel(element);
+		panel.onAttach();
+		detachOnWindowClose(panel);
+		return panel;
+	}
 
-  private static void hookWindowClosing() {
-    Impl.scheduleDispose(new Disposable() {
-      @Override
-      public void dispose() {
-        detachWidgets();
-      }
-    });
-    // Catch the window closing event.
-    Window.addCloseHandler(new CloseHandler<Window>() {
-      @Override
+	public static void detachNow(WrapPanel panel) {
+		assert widgetsToDetach.contains(panel) : "detachNow() called on a panel not currently in the detach list";
+		try {
+			panel.onDetach();
+		} finally {
+			widgetsToDetach.remove(panel);
+		}
+	}
+
+	public static void detachOnWindowClose(WrapPanel panel) {
+		assert !widgetsToDetach.contains(panel) : "detachOnUnload() called twice for the same panel";
+		widgetsToDetach.add(panel);
+	}
+
+	private static void hookWindowClosing() {
+		Impl.scheduleDispose(new Disposable() {
+			@Override
+			public void dispose() {
+				detachWidgets();
+			}
+		});
+		// Catch the window closing event.
+		Window.addCloseHandler(new CloseHandler<Window>() {
+			@Override
 			public void onClose(CloseEvent<Window> closeEvent) {
-        detachWidgets();
-      }
-    });
-  }
-  
-  private static void detachWidgets() {
-    // When the window is closing, detach all widgets that need to be
-    // cleaned up. This will cause all of their event listeners
-    // to be unhooked, which will avoid potential memory leaks.
-    try {
-      AttachDetachException.tryCommand(widgetsToDetach, maybeDetachCommand);
-    } finally {
-      widgetsToDetach.clear();
-    }
-  }
-  
-  private WrapPanel(Element element) {
-    setElement(element);
-  }
-  
-  @Override
-  public void add(Widget widget) {
-    add(widget, (Element) getElement());
-  }
+				detachWidgets();
+			}
+		});
+	}
+
+	private static void detachWidgets() {
+		// When the window is closing, detach all widgets that need to be
+		// cleaned up. This will cause all of their event listeners
+		// to be unhooked, which will avoid potential memory leaks.
+		try {
+			AttachDetachException.tryCommand(widgetsToDetach, maybeDetachCommand);
+		} finally {
+			widgetsToDetach.clear();
+		}
+	}
+
+	private WrapPanel(Element element) {
+		setElement(element);
+	}
+
+	@Override
+	public void add(Widget widget) {
+		add(widget, (Element) getElement());
+	}
 }
