@@ -6,4 +6,4 @@ Each plugin here is a separate web application that is developed and deployed in
 
 All documentation and instructions were moved to [Wiki](https://github.com/domax/gwt-dynamic-plugins/wiki).
 
-Live demo on Google App Engine is available [here](http://gwt-dynamic-673.appspot.com/).
+Live demo on Google App Engine is available [here](http://gwt-dynamic-host.appspot.com/).
