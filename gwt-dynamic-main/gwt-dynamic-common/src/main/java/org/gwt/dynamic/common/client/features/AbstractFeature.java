@@ -20,8 +20,7 @@ public abstract class AbstractFeature<A, R> implements Feature<A, R> {
 	public static native boolean isRegistered(String moduleName, String featureName) /*-{
 		return !!$wnd.__features 
 				&& !!$wnd.__features[moduleName] 
-				&& !!$wnd.__features[moduleName][featureName] 
-				&& typeof $wnd.__features[moduleName][featureName].callFunction == "function";
+				&& !!$wnd.__features[moduleName][featureName];
 	}-*/;
 
 	@Override

@@ -62,15 +62,23 @@ public abstract class FeatureProvider<A, R> extends AbstractFeature<A, R> {
 	private native void register(String moduleName, String featureName) /*-{
 		if (!$wnd.__features) $wnd.__features = {};
 		if (!$wnd.__features[moduleName]) $wnd.__features[moduleName] = {};
-		if (!$wnd.__features[moduleName][featureName]) $wnd.__features[moduleName][featureName] = {};
-		$wnd.__features[moduleName][featureName].callFunction = 
-				$entry(this.@org.gwt.dynamic.common.client.features.FeatureProvider::doCall(Ljava/lang/Object;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;));
-		$wnd.__features[moduleName][featureName].context = this;
+		if (!$wnd.__features[moduleName][featureName]) $wnd.__features[moduleName][featureName] = [];
+		var that = this;
+		$wnd.__features[moduleName][featureName].push({
+			callFunction: $entry(that.@org.gwt.dynamic.common.client.features.FeatureProvider::doCall(Ljava/lang/Object;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)),
+			context: that
+		});
 	}-*/;
 
 	private native void unregister(String moduleName, String featureName) /*-{
-		$wnd.__features[moduleName][featureName].callFunction = null;
-		$wnd.__features[moduleName][featureName].context = null;
+		var a = $wnd.__features[moduleName][featureName];
+		for (var i in a) {
+			var f = a[i];
+			f.callFunction = null;
+			f.context = null;
+			a[i] = null;
+		}
+		$wnd.__features[moduleName][featureName] = null;
 	}-*/;
 	
 	final private void doCall(A arguments, JavaScriptObject failureFunction, JavaScriptObject successFunction) {
