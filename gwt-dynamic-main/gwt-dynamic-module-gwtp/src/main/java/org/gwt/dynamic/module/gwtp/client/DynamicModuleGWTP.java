@@ -13,19 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.common.client.features;
+package org.gwt.dynamic.module.gwtp.client;
 
-public abstract class AbstractFeature<A, R> implements Feature<A, R> {
+import java.util.logging.Logger;
 
-	public static native boolean isRegistered(String moduleName, String featureName) /*-{
-		return !!$wnd.__features 
-				&& !!$wnd.__features[moduleName] 
-				&& !!$wnd.__features[moduleName][featureName] 
-				&& typeof $wnd.__features[moduleName][featureName].callFunction == "function";
-	}-*/;
+import org.gwt.dynamic.common.client.module.AbstractModule;
 
+import com.google.gwt.core.client.GWT;
+import com.gwtplatform.mvp.client.ApplicationController;
+
+public class DynamicModuleGWTP extends AbstractModule {
+
+	private static final Logger LOG = Logger.getLogger(DynamicModuleGWTP.class.getName());
+	private static final ApplicationController APP_CTRLR = GWT.create(ApplicationController.class);
+	
 	@Override
-	public boolean isRegistered() {
-		return isRegistered(getModuleName(), getType());
+	protected void onModuleConfigured() {
+		LOG.info("DynamicModuleGWTP.onModuleConfigured");
+		APP_CTRLR.init();
+		reportIsReady();
 	}
 }

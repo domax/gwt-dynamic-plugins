@@ -13,19 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.common.client.features;
+package org.gwt.dynamic.module.gwtp.client.gin;
 
-public abstract class AbstractFeature<A, R> implements Feature<A, R> {
+import com.google.inject.Inject;
+import com.google.web.bindery.event.shared.EventBus;
+import com.gwtplatform.mvp.client.proxy.PlaceManagerImpl;
 
-	public static native boolean isRegistered(String moduleName, String featureName) /*-{
-		return !!$wnd.__features 
-				&& !!$wnd.__features[moduleName] 
-				&& !!$wnd.__features[moduleName][featureName] 
-				&& typeof $wnd.__features[moduleName][featureName].callFunction == "function";
-	}-*/;
+public class SilentPlaceManager extends PlaceManagerImpl {
+
+	@Inject
+	public SilentPlaceManager(EventBus eventBus) {
+		super(eventBus, null);
+	}
 
 	@Override
-	public boolean isRegistered() {
-		return isRegistered(getModuleName(), getType());
-	}
+	public void revealDefaultPlace() {}
 }

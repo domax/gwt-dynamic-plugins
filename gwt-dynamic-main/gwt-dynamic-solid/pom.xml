@@ -37,6 +37,8 @@
 
 	<properties>
 		<service.url>http://localhost:8888/rest</service.url>
+		<gwtp.version>1.3.1</gwtp.version>
+		<gin.version>2.1.2</gin.version>
 	</properties>
 
 	<repositories>
@@ -52,6 +54,16 @@
 			<artifactId>gwt-g2d</artifactId>
 			<version>v008</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.gwtplatform</groupId>
+			<artifactId>gwtp-all</artifactId>
+			<version>${gwtp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+			<version>${gin.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -135,6 +147,7 @@
 								<source>${basedir}/../gwt-dynamic-host/src/main/java</source>
 								<source>${basedir}/../gwt-dynamic-module-foo/src/main/java</source>
 								<source>${basedir}/../gwt-dynamic-module-bar/src/main/java</source>
+								<source>${basedir}/../gwt-dynamic-module-gwtp/src/main/java</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -166,6 +179,10 @@
 									<filtering>true</filtering>
 									<directory>${basedir}/../gwt-dynamic-module-bar/src/main/resources</directory>
 								</resource>
+								<resource>
+									<filtering>true</filtering>
+									<directory>${basedir}/../gwt-dynamic-module-gwtp/src/main/resources</directory>
+								</resource>
 							</resources>
 						</configuration>
 					</execution>
@@ -180,6 +197,7 @@
 						<module>org.gwt.dynamic.host.DynamicHost_dev</module>
 						<module>org.gwt.dynamic.module.foo.DynamicModuleFoo_dev</module>
 						<module>org.gwt.dynamic.module.bar.DynamicModuleBar_dev</module>
+						<module>org.gwt.dynamic.module.gwtp.DynamicModuleGWTP_dev</module>
 					</modules>
 				</configuration>
 			</plugin>

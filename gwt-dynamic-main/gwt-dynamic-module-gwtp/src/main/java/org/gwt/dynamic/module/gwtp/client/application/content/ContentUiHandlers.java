@@ -13,19 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.common.client.features;
+package org.gwt.dynamic.module.gwtp.client.application.content;
 
-public abstract class AbstractFeature<A, R> implements Feature<A, R> {
+import com.gwtplatform.mvp.client.UiHandlers;
 
-	public static native boolean isRegistered(String moduleName, String featureName) /*-{
-		return !!$wnd.__features 
-				&& !!$wnd.__features[moduleName] 
-				&& !!$wnd.__features[moduleName][featureName] 
-				&& typeof $wnd.__features[moduleName][featureName].callFunction == "function";
-	}-*/;
-
-	@Override
-	public boolean isRegistered() {
-		return isRegistered(getModuleName(), getType());
-	}
-}
+public interface ContentUiHandlers extends UiHandlers {}

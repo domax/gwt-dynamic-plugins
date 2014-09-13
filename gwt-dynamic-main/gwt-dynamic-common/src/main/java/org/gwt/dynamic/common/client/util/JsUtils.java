@@ -162,6 +162,19 @@ public final class JsUtils {
 	public static native String toStringJSO(JavaScriptObject jso) /*-{
 		return JSON.stringify(jso);
 	}-*/;
+
+	/**
+	 * Returns string representation of given object. In case if object is {@link JavaScriptObject} the JSON string will
+	 * be returned.
+	 * 
+	 * @param obj
+	 *          An object to be stringified.
+	 * @return A string representation of given object.
+	 */
+	public static String toStringObject(Object obj) {
+		if (obj instanceof JavaScriptObject) return toStringJSO((JavaScriptObject) obj);
+		return String.valueOf(obj);
+	}
 	
 	private JsUtils() {}
 }

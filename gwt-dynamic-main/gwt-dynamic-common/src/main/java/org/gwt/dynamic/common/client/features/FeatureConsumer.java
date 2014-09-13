@@ -35,16 +35,13 @@ public abstract class FeatureConsumer<A, R> extends AbstractFeature<A, R> {
 	}
 
 	private native void doCall(String moduleName, String featureName, A arguments, ConsumerCallback<R> callback) /*-{
-		var a = $wnd.__features[moduleName][featureName];
-		for (var i in a) {
-			var f = a[i];
-			f.callFunction.call(f.context, arguments,
-				function (error) {
-					callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onFailure(Ljava/lang/String;).call(callback, error);
-				},
-				function (result) {
-					callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onSuccess(Ljava/lang/Object;).call(callback, result);
-				});
-		}
+		var f = $wnd.__features[moduleName][featureName];
+		f.callFunction.call(f.context, arguments,
+			function (error) {
+				callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onFailure(Ljava/lang/String;).call(callback, error);
+			},
+			function (result) {
+				callback.@org.gwt.dynamic.common.client.features.ConsumerCallback::onSuccess(Ljava/lang/Object;).call(callback, result);
+			});
 	}-*/;	
 }

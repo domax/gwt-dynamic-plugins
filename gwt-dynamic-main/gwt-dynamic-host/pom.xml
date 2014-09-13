@@ -103,6 +103,10 @@
 							<war>${basedir}/../gwt-dynamic-module-bar/target/gwt-dynamic-module-bar-${project.version}</war>
 							<contextPath>/gwt-dynamic-module-bar</contextPath>
 						</contextHandler>
+						<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+							<war>${basedir}/../gwt-dynamic-module-gwtp/target/gwt-dynamic-module-gwtp-${project.version}</war>
+							<contextPath>/gwt-dynamic-module-gwtp</contextPath>
+						</contextHandler>
 					</contextHandlers> 
 				</configuration>
 			</plugin>
