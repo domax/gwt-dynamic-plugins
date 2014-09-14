@@ -13,42 +13,33 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.gwtp.client.application.content;
+package org.gwt.dynamic.module.gwtp.client.application.nested;
 
 import java.util.logging.Logger;
 
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
-public class ContentView extends ViewWithUiHandlers<ContentUiHandlers>
-		implements ContentPresenter.MyView {
+public class NestedView extends ViewWithUiHandlers<NestedUiHandlers>
+implements NestedPresenter.MyView {
 
-	private static final Logger LOG = Logger.getLogger(ContentView.class.getName());
+	private static final Logger LOG = Logger.getLogger(NestedView.class.getName());
 
-	interface Binder extends UiBinder<Widget, ContentView> {}
+	interface Binder extends UiBinder<Widget, NestedView> {}
 
 	public interface InnerCss extends CssResource {}
 
 	@UiField public static InnerCss style;
-	@UiField SimplePanel content;
+	@UiField HTML content;
 
 	@Inject
-	public ContentView(final Binder binder) {
+	public NestedView(final Binder binder) {
 		initWidget(binder.createAndBindUi(this));
-		LOG.info("ContentView: instantiated");
-	}
-
-	@Override
-	public void setInSlot(Object slot, IsWidget content) {
-		LOG.info("HomeView.setInSlot");
-		if (slot == ContentPresenter.SLOT_NESTED)
-			this.content.setWidget(content);
-		else super.setInSlot(slot, content);
+		LOG.info("NestedView: instantiated");
 	}
 }

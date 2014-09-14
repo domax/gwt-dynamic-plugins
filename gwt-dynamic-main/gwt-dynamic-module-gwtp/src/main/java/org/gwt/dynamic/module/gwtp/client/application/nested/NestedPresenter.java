@@ -13,45 +13,38 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.gwtp.client.application.content;
+package org.gwt.dynamic.module.gwtp.client.application.nested;
 
 import java.util.logging.Logger;
-
-import org.gwt.dynamic.module.gwtp.client.application.nested.NestedPresenter;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
-import com.gwtplatform.mvp.client.ModulePresenter;
+import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 
-public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> implements ContentUiHandlers {
+public class NestedPresenter extends PresenterWidget<NestedPresenter.MyView> implements NestedUiHandlers {
 
-	private static final Logger LOG = Logger.getLogger(ContentPresenter.class.getName());
-	public static final Object SLOT_NESTED = new Object();
+	private static final Logger LOG = Logger.getLogger(NestedPresenter.class.getName());
 	
-	public interface MyView extends View, HasUiHandlers<ContentUiHandlers> {}
-	
-	private final NestedPresenter nestedPresenter;
+	public interface MyView extends View, HasUiHandlers<NestedUiHandlers> {}
 	
 	@Inject
-	public ContentPresenter(final EventBus eventBus, final MyView view, NestedPresenter nestedPresenter) {
+	public NestedPresenter(final EventBus eventBus, final MyView view) {
 		super(eventBus, view);
 		getView().setUiHandlers(this);
-		this.nestedPresenter = nestedPresenter;
-		LOG.info("ContentPresenter: instantiated");
+		LOG.info("NestedPresenter: instantiated");
 	}
 	
 	@Override
 	protected void onBind() {
 		super.onBind();
-		LOG.info("ContentPresenter.onBind");
-		setInSlot(SLOT_NESTED, nestedPresenter);
+		LOG.info("NestedPresenter.onBind");
 	}
 	
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		LOG.info("ContentPresenter.onReveal");
+		LOG.info("NestedPresenter.onReveal");
 	}
 }

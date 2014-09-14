@@ -38,16 +38,11 @@ public class FeatureController implements FeatureCommonConst {
 	
 	@Inject
 	public FeatureController(EventBus eventBus) {
-		new ModuleInfoFeatureProvider(
-				"GWTP Module", 
-				"This module is built using GWTP framework.");
-
+		new ModuleInfoFeatureProvider("GWTP Module", "This module is built using GWTP framework.");
 		new ModuleContentFeatureProvider(new ViewHandler() {
 			@Override
 			public Widget getView() {
-				ContentPresenter presenter = contentPresenterProvider.get();
-				presenter.onReveal();
-				return presenter.asWidget();
+				return contentPresenterProvider.get().asWidget();
 			}
 		});
 		LOG.info("FeatureController: instantiated");

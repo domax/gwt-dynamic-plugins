@@ -13,11 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.gwtp.client.gin;
+package org.gwt.dynamic.module.gwtp.client.application;
 
-import org.gwt.dynamic.module.gwtp.client.application.FeatureController;
 import org.gwt.dynamic.module.gwtp.client.application.content.ContentPresenter;
 import org.gwt.dynamic.module.gwtp.client.application.content.ContentView;
+import org.gwt.dynamic.module.gwtp.client.application.nested.NestedPresenter;
+import org.gwt.dynamic.module.gwtp.client.application.nested.NestedView;
 
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
@@ -39,5 +40,9 @@ public class ClientModule extends AbstractPresenterModule {
 				ContentPresenter.class,
 				ContentPresenter.MyView.class,
 				ContentView.class);
+		bindSingletonPresenterWidget(
+				NestedPresenter.class,
+				NestedPresenter.MyView.class,
+				NestedView.class);
 	}
 }

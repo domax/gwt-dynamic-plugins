@@ -29,7 +29,7 @@
 
 	<add-linker name="xsiframe" />
 
-	<set-configuration-property name="gin.ginjector.modules" value="org.gwt.dynamic.module.gwtp.client.gin.ClientModule" />
+	<set-configuration-property name="gin.ginjector.modules" value="org.gwt.dynamic.module.gwtp.client.application.ClientModule" />
 	<entry-point class="org.gwt.dynamic.module.gwtp.client.DynamicModuleGWTP" />
 
 	<!-- Important! This prefix must be unique across all the modules and host app -->

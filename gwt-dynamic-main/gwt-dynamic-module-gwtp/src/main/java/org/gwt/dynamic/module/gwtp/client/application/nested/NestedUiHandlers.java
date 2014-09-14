@@ -1,4 +1,4 @@
-<!--
+/*
  * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
@@ -12,21 +12,9 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
--->
-<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder 
-	xmlns:ui="urn:ui:com.google.gwt.uibinder" 
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	
-	<ui:style type="org.gwt.dynamic.module.gwtp.client.application.content.ContentView.InnerCss">
-		.content {
-			position: abslute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-		}
-	</ui:style>
-	
-	<g:SimplePanel ui:field="content" styleName="{style.content}" />
-</ui:UiBinder>
+ */
+package org.gwt.dynamic.module.gwtp.client.application.nested;
+
+import com.gwtplatform.mvp.client.UiHandlers;
+
+public interface NestedUiHandlers extends UiHandlers {}

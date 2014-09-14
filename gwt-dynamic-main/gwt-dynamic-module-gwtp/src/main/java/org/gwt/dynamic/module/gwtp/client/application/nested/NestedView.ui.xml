@@ -1,4 +1,4 @@
-/*
+<!--
  * Copyright 2014 Maxim Dominichenko
  * 
  * Licensed under The MIT License (MIT) (the "License"); you may not
@@ -12,20 +12,23 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- */
-package org.gwt.dynamic.module.gwtp.client.gin;
-
-import com.google.inject.Inject;
-import com.google.web.bindery.event.shared.EventBus;
-import com.gwtplatform.mvp.client.proxy.PlaceManagerImpl;
-
-public class SilentPlaceManager extends PlaceManagerImpl {
-
-	@Inject
-	public SilentPlaceManager(EventBus eventBus) {
-		super(eventBus, null);
-	}
-
-	@Override
-	public void revealDefaultPlace() {}
-}
+-->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder 
+	xmlns:ui="urn:ui:com.google.gwt.uibinder" 
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	
+	<ui:style type="org.gwt.dynamic.module.gwtp.client.application.nested.NestedView.InnerCss">
+		.nested {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			bottom: 25px;
+			left: 10px;
+			background-color: lightgrey;
+			padding: 10px;
+		}
+	</ui:style>
+	
+	<g:HTML ui:field="content" styleName="{style.nested}">Nested Presenter Widget</g:HTML>
+</ui:UiBinder>
