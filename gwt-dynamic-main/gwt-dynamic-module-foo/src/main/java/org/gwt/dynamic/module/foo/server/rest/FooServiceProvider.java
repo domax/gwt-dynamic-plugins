@@ -38,30 +38,24 @@ import org.gwt.dynamic.module.foo.shared.services.FooServiceConst;
 public class FooServiceProvider extends AbstractServiceProvider implements FooServiceConst {
 
 	private static final Logger LOG = Logger.getLogger(FooServiceProvider.class.getName());
-	
+	private static final String URL = "http://loripsum.net/api/10/long";
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public FooData getFooData() throws MalformedURLException, IOException {
 		FooData result = new FooData("Foo Lorem Ipsum", null);
-		Reader r = new InputStreamReader((InputStream) new URL("http://loripsum.net/api/10/long").getContent(), "UTF-8");
-		try {
-			Writer w = new StringWriter();
-			try {
-				char[] buf = new char[1024 * 4];
-				for (int c = 0; c >= 0; c = r.read(buf)) w.write(buf, 0, c);
-				result.setHtml(w.toString());
-				w.flush();
-			} finally {
-				w.close();
-			}
-		} finally {
-			r.close();
+		try (Reader r = new InputStreamReader((InputStream) new URL(URL).getContent(), "UTF-8");
+				Writer w = new StringWriter()) {
+			char[] buf = new char[1024 * 4];
+			for (int c = 0; c >= 0; c = r.read(buf))
+				w.write(buf, 0, c);
+			result.setHtml(w.toString());
 		}
 		LOG.fine("result=" + result);
 		return result;
 	}
-	
+
 	public static void main(String[] args) throws MalformedURLException, IOException {
-		System.out.println(new FooServiceProvider().getFooData()); 
+		System.out.println(new FooServiceProvider().getFooData());
 	}
 }
