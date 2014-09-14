@@ -21,6 +21,4 @@
 <module rename-to="DynamicModuleFoo">
 	<inherits name="org.gwt.dynamic.common.DynamicCommon" />
 	<inherits name="org.gwt.dynamic.module.foo.ModuleFoo" />
-
-	<entry-point class="org.gwt.dynamic.module.foo.client.DynamicModuleFoo" />
 </module>

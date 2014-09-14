@@ -21,10 +21,4 @@
 <module rename-to="DynamicModuleFoo">
 	<inherits name="org.gwt.dynamic.common.DynamicCommon_dev" />
 	<inherits name="org.gwt.dynamic.module.foo.ModuleFoo" />
-
-	<entry-point class="org.gwt.dynamic.module.foo.client.DynamicModuleFoo" />
-
-	<set-configuration-property name="devModeRedirectEnabled" value="true" />
-	<set-configuration-property name="xsiframe.failIfScriptTag" value="false" />
-	<set-configuration-property name="CssResource.style" value="pretty" />
 </module>

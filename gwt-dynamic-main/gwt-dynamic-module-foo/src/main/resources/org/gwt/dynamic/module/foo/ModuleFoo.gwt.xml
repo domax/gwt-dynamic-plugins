@@ -23,6 +23,8 @@
 	<source path="shared" />
 	<public path="export" />
 
+	<entry-point class="org.gwt.dynamic.module.foo.client.DynamicModuleFoo" />
+
 	<add-linker name="xsiframe" />
 	<set-configuration-property name="CssResource.obfuscationPrefix" value="DMF" />
 </module>

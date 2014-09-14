@@ -21,6 +21,4 @@
 <module rename-to="DynamicModuleBar">
 	<inherits name="org.gwt.dynamic.common.DynamicCommon" />
 	<inherits name="org.gwt.dynamic.module.bar.ModuleBar" />
-
-	<entry-point class="org.gwt.dynamic.module.bar.client.DynamicModuleBar" />
 </module>

@@ -25,6 +25,8 @@
 	<source path="shared" />
 	<public path="export" />
 
+	<entry-point class="org.gwt.dynamic.module.bar.client.DynamicModuleBar" />
+
 	<add-linker name="xsiframe" />
 	<set-configuration-property name="CssResource.obfuscationPrefix" value="DMB" />
 	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>

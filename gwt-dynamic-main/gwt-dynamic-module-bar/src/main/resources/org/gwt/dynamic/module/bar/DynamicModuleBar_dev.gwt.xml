@@ -21,10 +21,4 @@
 <module rename-to="DynamicModuleBar">
 	<inherits name="org.gwt.dynamic.common.DynamicCommon_dev" />
 	<inherits name="org.gwt.dynamic.module.bar.ModuleBar" />
-
-	<entry-point class="org.gwt.dynamic.module.bar.client.DynamicModuleBar" />
-
-	<set-configuration-property name="devModeRedirectEnabled" value="true" />
-	<set-configuration-property name="xsiframe.failIfScriptTag" value="false" />
-	<set-configuration-property name="CssResource.style" value="pretty" />
 </module>

@@ -21,9 +21,5 @@
 <module rename-to="DynamicHost">
 	<inherits name="org.gwt.dynamic.common.DynamicCommon_dev" />
 	<inherits name="org.gwt.dynamic.host.Host" />
-
 	<add-linker name="xsiframe" />
-	<set-configuration-property name="devModeRedirectEnabled" value="true" />
-	<set-configuration-property name="xsiframe.failIfScriptTag" value="false" />
-	<set-configuration-property name="CssResource.style" value="pretty" />
 </module>
