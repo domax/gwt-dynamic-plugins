@@ -42,7 +42,8 @@ public class FeatureController implements FeatureCommonConst {
 	
 	@Inject
 	public FeatureController(EventBus eventBus) {
-		new ModuleInfoFeatureProvider("GWTP Module", "This module is built using GWTP framework.");
+		new ModuleInfoFeatureProvider("GWTP Module", 
+				"This module is built using GWTP framework. The graph in nested widget is just for fun ;)");
 		new ModuleContentFeatureProvider(new ViewHandler() {
 			@Override
 			public Widget getView() {

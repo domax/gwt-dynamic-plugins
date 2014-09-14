@@ -65,6 +65,18 @@
 			<artifactId>gin</artifactId>
 			<version>${gin.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.gwtd3</groupId>
+			<artifactId>gwt-d3-js</artifactId>
+			<version>3.3.11</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.gwtd3</groupId>
+			<artifactId>gwt-d3-api</artifactId>
+			<version>1.0.2</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>

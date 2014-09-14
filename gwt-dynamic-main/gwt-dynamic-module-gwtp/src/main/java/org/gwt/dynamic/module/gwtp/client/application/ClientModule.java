@@ -17,8 +17,8 @@ package org.gwt.dynamic.module.gwtp.client.application;
 
 import org.gwt.dynamic.module.gwtp.client.application.content.ContentPresenter;
 import org.gwt.dynamic.module.gwtp.client.application.content.ContentView;
-import org.gwt.dynamic.module.gwtp.client.application.nested.NestedPresenter;
-import org.gwt.dynamic.module.gwtp.client.application.nested.NestedView;
+import org.gwt.dynamic.module.gwtp.client.application.roles.RolesPresenter;
+import org.gwt.dynamic.module.gwtp.client.application.roles.RolesView;
 
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
@@ -41,8 +41,8 @@ public class ClientModule extends AbstractPresenterModule {
 				ContentPresenter.MyView.class,
 				ContentView.class);
 		bindSingletonPresenterWidget(
-				NestedPresenter.class,
-				NestedPresenter.MyView.class,
-				NestedView.class);
+				RolesPresenter.class,
+				RolesPresenter.MyView.class,
+				RolesView.class);
 	}
 }

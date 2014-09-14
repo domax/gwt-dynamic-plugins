@@ -17,7 +17,7 @@ package org.gwt.dynamic.module.foo.client;
 
 import java.util.logging.Logger;
 
-import org.gwt.dynamic.module.foo.shared.beans.FooData;
+import org.gwt.dynamic.module.foo.shared.FooData;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.CssResource;

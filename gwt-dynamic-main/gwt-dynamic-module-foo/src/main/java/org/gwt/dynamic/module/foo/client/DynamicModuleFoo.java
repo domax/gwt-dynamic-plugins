@@ -22,7 +22,7 @@ import org.gwt.dynamic.common.client.features.ModuleContentFeatureProvider.ViewH
 import org.gwt.dynamic.common.client.features.ModuleInfoFeatureProvider;
 import org.gwt.dynamic.common.client.module.AbstractModule;
 import org.gwt.dynamic.module.foo.client.services.FooServiceConsumer;
-import org.gwt.dynamic.module.foo.shared.beans.FooData;
+import org.gwt.dynamic.module.foo.shared.FooData;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;

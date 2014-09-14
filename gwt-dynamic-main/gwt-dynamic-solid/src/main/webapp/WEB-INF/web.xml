@@ -24,7 +24,7 @@
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>org.gwt.dynamic.host.server.rest org.gwt.dynamic.module.foo.server.rest</param-value>
+			<param-value>org.gwt.dynamic.host.server org.gwt.dynamic.module.foo.server org.gwt.dynamic.module.gwtp.server</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>

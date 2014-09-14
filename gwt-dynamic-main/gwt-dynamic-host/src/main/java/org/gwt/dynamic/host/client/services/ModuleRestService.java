@@ -22,8 +22,8 @@ import javax.ws.rs.Path;
 
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
-import org.gwt.dynamic.host.shared.services.ModuleServiceConst;
+import org.gwt.dynamic.host.shared.ModuleBean;
+import org.gwt.dynamic.host.shared.ModuleServiceConst;
 
 public interface ModuleRestService extends RestService, ModuleServiceConst {
 

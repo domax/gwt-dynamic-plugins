@@ -20,7 +20,9 @@ import java.util.logging.Logger;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -33,9 +35,13 @@ public class ContentView extends ViewWithUiHandlers<ContentUiHandlers>
 
 	interface Binder extends UiBinder<Widget, ContentView> {}
 
-	public interface InnerCss extends CssResource {}
+	public interface InnerCss extends CssResource {
+		String error();
+	}
 
 	@UiField public static InnerCss style;
+	@UiField FlowPanel main;
+	@UiField Label message;
 	@UiField SimplePanel content;
 
 	@Inject
@@ -50,5 +56,12 @@ public class ContentView extends ViewWithUiHandlers<ContentUiHandlers>
 		if (slot == ContentPresenter.SLOT_NESTED)
 			this.content.setWidget(content);
 		else super.setInSlot(slot, content);
+	}
+
+	@Override
+	public void setError(String error) {
+		LOG.info("HomeView.setError: error=" + error);
+		message.setText(error);
+		main.addStyleName(style.error());
 	}
 }

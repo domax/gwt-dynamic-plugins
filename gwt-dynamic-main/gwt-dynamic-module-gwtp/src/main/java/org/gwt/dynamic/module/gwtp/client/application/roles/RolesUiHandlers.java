@@ -13,17 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.host.client.module;
+package org.gwt.dynamic.module.gwtp.client.application.roles;
 
-import java.util.List;
+import com.gwtplatform.mvp.client.UiHandlers;
 
-import org.gwt.dynamic.host.shared.ModuleBean;
-
-import com.google.gwt.core.shared.GWT;
-
-public interface ModuleLoader {
-
-	public static final ModuleLoader INSTANCE = GWT.create(ModuleLoader.class);
-
-	void load(List<ModuleBean> modules);
-}
+public interface RolesUiHandlers extends UiHandlers {}

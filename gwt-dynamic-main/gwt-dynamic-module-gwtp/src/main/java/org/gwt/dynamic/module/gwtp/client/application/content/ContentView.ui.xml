@@ -19,14 +19,36 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	
 	<ui:style type="org.gwt.dynamic.module.gwtp.client.application.content.ContentView.InnerCss">
-		.content {
-			position: abslute;
+		.main {
+			position: absolute;
 			left: 0;
 			top: 0;
 			width: 100%;
 			height: 100%;
 		}
+	
+		.message {
+			display: none;
+		}
+		.error .message {
+			display: block;
+			color: red;
+		}
+		
+		.content {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.error .content {
+			display: none;
+		}
 	</ui:style>
 	
-	<g:SimplePanel ui:field="content" styleName="{style.content}" />
+	<g:FlowPanel ui:field="main" styleName="{style.main}">
+		<g:Label ui:field="message" styleName="{style.message}" />
+		<g:SimplePanel ui:field="content" styleName="{style.content}" />
+	</g:FlowPanel>
 </ui:UiBinder>

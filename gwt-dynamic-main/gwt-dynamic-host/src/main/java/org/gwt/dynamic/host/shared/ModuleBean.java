@@ -13,42 +13,42 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.foo.shared.beans;
+package org.gwt.dynamic.host.shared;
 
-public class FooData {
+public class ModuleBean {
 
-	private String header;
-	private String html;
+	private String name;
+	private String url;
 
-	public FooData() {}
+	public ModuleBean() {}
 
-	public FooData(String header, String html) {
-		this.header = header;
-		this.html = html;
+	public ModuleBean(String name, String url) {
+		this.name = name;
+		this.url = url;
 	}
 
-	public String getHeader() {
-		return header;
+	public String getName() {
+		return name;
 	}
 
-	public void setHeader(String header) {
-		this.header = header;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getHtml() {
-		return html;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setHtml(String html) {
-		this.html = html;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((header == null) ? 0 : header.hashCode());
-		result = prime * result + ((html == null) ? 0 : html.hashCode());
+		result = prime * result + ((url == null) ? 0 : url.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -57,21 +57,21 @@ public class FooData {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		FooData other = (FooData) obj;
-		if (header == null) {
-			if (other.header != null) return false;
-		} else if (!header.equals(other.header)) return false;
-		if (html == null) {
-			if (other.html != null) return false;
-		} else if (!html.equals(other.html)) return false;
+		ModuleBean other = (ModuleBean) obj;
+		if (url == null) {
+			if (other.url != null) return false;
+		} else if (!url.equals(other.url)) return false;
+		if (name == null) {
+			if (other.name != null) return false;
+		} else if (!name.equals(other.name)) return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return new StringBuilder("FooData")
-				.append(" {header=").append(header)
-				.append(", html=").append(html)
+		return new StringBuilder("ModuleBean")
+				.append(" {name=").append(name)
+				.append(", url=").append(url)
 				.append("}").toString();
 	}
 }

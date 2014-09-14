@@ -13,8 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.gwtp.client.application.nested;
+package org.gwt.dynamic.module.foo.shared;
 
-import com.gwtplatform.mvp.client.UiHandlers;
-
-public interface NestedUiHandlers extends UiHandlers {}
+public interface FooServiceConst {
+	
+	String PATH = "foo";
+}

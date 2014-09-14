@@ -26,7 +26,7 @@ import org.gwt.dynamic.common.client.features.FeatureConsumer;
 import org.gwt.dynamic.common.client.jso.ModuleInfo;
 import org.gwt.dynamic.common.client.util.BatchRunner;
 import org.gwt.dynamic.common.client.util.BatchRunner.CommandSimple;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
+import org.gwt.dynamic.host.shared.ModuleBean;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

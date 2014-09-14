@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 import org.fusesource.restygwt.client.MethodCallback;
 import org.gwt.dynamic.common.client.services.AbstractServiceConsumer;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
+import org.gwt.dynamic.host.shared.ModuleBean;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;

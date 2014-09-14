@@ -27,7 +27,7 @@ import org.gwt.dynamic.host.client.features.ModuleReadyFeatureProvider;
 import org.gwt.dynamic.host.client.main.MainLayout;
 import org.gwt.dynamic.host.client.module.ModuleLoader;
 import org.gwt.dynamic.host.client.services.ModuleServiceConsumer;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
+import org.gwt.dynamic.host.shared.ModuleBean;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.LoadEvent;

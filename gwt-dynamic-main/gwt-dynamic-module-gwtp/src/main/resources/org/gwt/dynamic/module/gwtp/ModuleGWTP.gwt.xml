@@ -22,6 +22,7 @@
 	<inherits name="com.google.gwt.inject.Inject" />
 <!-- 	<inherits name='com.gwtplatform.dispatch.Dispatch' /> -->
 	<inherits name='com.gwtplatform.mvp.Mvp' />
+	<inherits name='com.github.gwtd3.D3' />
 
 	<source path="client" />
 	<source path="shared" />

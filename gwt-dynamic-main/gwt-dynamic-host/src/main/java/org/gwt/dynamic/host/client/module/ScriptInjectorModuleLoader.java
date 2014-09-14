@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static org.gwt.dynamic.common.shared.Utils.*;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
+
+import org.gwt.dynamic.host.shared.ModuleBean;
 
 import com.google.gwt.core.client.ScriptInjector;
 

@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import org.gwt.dynamic.common.client.features.FeatureCommonConst;
 import org.gwt.dynamic.common.client.features.FeatureProvider;
 import org.gwt.dynamic.common.shared.Utils;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
+import org.gwt.dynamic.host.shared.ModuleBean;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.DomEvent;

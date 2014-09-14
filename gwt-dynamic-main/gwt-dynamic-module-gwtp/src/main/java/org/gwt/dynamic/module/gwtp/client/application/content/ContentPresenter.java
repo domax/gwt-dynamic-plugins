@@ -15,10 +15,15 @@
  */
 package org.gwt.dynamic.module.gwtp.client.application.content;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
-import org.gwt.dynamic.module.gwtp.client.application.nested.NestedPresenter;
+import org.gwt.dynamic.module.gwtp.client.application.roles.RolesPresenter;
+import org.gwt.dynamic.module.gwtp.client.event.RolesLoadedEvent;
+import org.gwt.dynamic.module.gwtp.client.services.RoleServiceConsumer;
+import org.gwt.dynamic.module.gwtp.shared.RoleBean;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -30,12 +35,14 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 	private static final Logger LOG = Logger.getLogger(ContentPresenter.class.getName());
 	public static final Object SLOT_NESTED = new Object();
 	
-	public interface MyView extends View, HasUiHandlers<ContentUiHandlers> {}
+	public interface MyView extends View, HasUiHandlers<ContentUiHandlers> {
+		void setError(String error);
+	}
 	
-	private final NestedPresenter nestedPresenter;
+	private final RolesPresenter nestedPresenter;
 	
 	@Inject
-	public ContentPresenter(final EventBus eventBus, final MyView view, NestedPresenter nestedPresenter) {
+	public ContentPresenter(final EventBus eventBus, final MyView view, RolesPresenter nestedPresenter) {
 		super(eventBus, view);
 		getView().setUiHandlers(this);
 		this.nestedPresenter = nestedPresenter;
@@ -53,6 +60,21 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 	protected void onReveal() {
 		super.onReveal();
 		LOG.info("ContentPresenter.onReveal");
+		RoleServiceConsumer.get().getRoles(new AsyncCallback<Set<RoleBean>>() {
+			
+			@Override
+			public void onSuccess(Set<RoleBean> result) {
+				LOG.info("ContentPresenter#getRoles#onFailure");
+				LOG.fine("ContentPresenter#getRoles#onFailure: result=" + result);
+				RolesLoadedEvent.fire(ContentPresenter.this, result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				LOG.severe("ContentPresenter#getRoles#onFailure: caught=" + caught.getMessage());
+				getView().setError("Error occurred: " + caught.getMessage());
+			}
+		});
 	}
 	
 	@Override

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.foo.server.rest;
+package org.gwt.dynamic.module.foo.server;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +31,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.gwt.dynamic.common.server.rest.AbstractServiceProvider;
-import org.gwt.dynamic.module.foo.shared.beans.FooData;
-import org.gwt.dynamic.module.foo.shared.services.FooServiceConst;
+import org.gwt.dynamic.module.foo.shared.FooData;
+import org.gwt.dynamic.module.foo.shared.FooServiceConst;
 
 @Path("/" + FooServiceConst.PATH)
 public class FooServiceProvider extends AbstractServiceProvider implements FooServiceConst {

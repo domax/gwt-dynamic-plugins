@@ -13,9 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.gwtp.client.application.nested;
+package org.gwt.dynamic.module.gwtp.client.application.roles;
 
+import java.util.Set;
 import java.util.logging.Logger;
+
+import org.gwt.dynamic.module.gwtp.client.event.RolesLoadedEvent;
+import org.gwt.dynamic.module.gwtp.shared.RoleBean;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -23,34 +27,48 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 
-public class NestedPresenter extends PresenterWidget<NestedPresenter.MyView> implements NestedUiHandlers {
+public class RolesPresenter extends PresenterWidget<RolesPresenter.MyView> 
+implements RolesUiHandlers, RolesLoadedEvent.Handler {
 
-	private static final Logger LOG = Logger.getLogger(NestedPresenter.class.getName());
+	private static final Logger LOG = Logger.getLogger(RolesPresenter.class.getName());
 	
-	public interface MyView extends View, HasUiHandlers<NestedUiHandlers> {}
+	public interface MyView extends View, HasUiHandlers<RolesUiHandlers> {
+		
+		void setData(Set<RoleBean> roles);
+		
+		void update();
+	}
 	
 	@Inject
-	public NestedPresenter(final EventBus eventBus, final MyView view) {
+	public RolesPresenter(final EventBus eventBus, final MyView view) {
 		super(eventBus, view);
 		getView().setUiHandlers(this);
-		LOG.info("NestedPresenter: instantiated");
+		LOG.info("RolesPresenter: instantiated");
 	}
 	
 	@Override
 	protected void onBind() {
 		super.onBind();
-		LOG.info("NestedPresenter.onBind");
+		LOG.info("RolesPresenter.onBind");
+		addRegisteredHandler(RolesLoadedEvent.getType(), this);
 	}
 	
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		LOG.info("NestedPresenter.onReveal");
+		LOG.info("RolesPresenter.onReveal");
 	}
 	
 	@Override
 	protected void onReset() {
 		super.onReset();
-		LOG.info("NestedPresenter.onReset");
+		LOG.info("RolesPresenter.onReset");
+		getView().update();
+	}
+
+	@Override
+	public void onRolesLoaded(RolesLoadedEvent event) {
+		LOG.fine("RolesPresenter.onRolesLoaded: event.roles=" + event.getRoles());
+		getView().setData(event.getRoles());
 	}
 }

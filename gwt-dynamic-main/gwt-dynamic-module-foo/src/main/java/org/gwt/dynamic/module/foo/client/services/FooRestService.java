@@ -20,8 +20,8 @@ import javax.ws.rs.Path;
 
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
-import org.gwt.dynamic.module.foo.shared.beans.FooData;
-import org.gwt.dynamic.module.foo.shared.services.FooServiceConst;
+import org.gwt.dynamic.module.foo.shared.FooData;
+import org.gwt.dynamic.module.foo.shared.FooServiceConst;
 
 @Path(FooServiceConst.PATH)
 public interface FooRestService extends RestService, FooServiceConst {

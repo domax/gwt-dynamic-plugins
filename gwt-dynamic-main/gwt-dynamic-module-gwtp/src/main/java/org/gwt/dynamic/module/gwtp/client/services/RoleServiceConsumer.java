@@ -13,39 +13,40 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.foo.client.services;
+package org.gwt.dynamic.module.gwtp.client.services;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.fusesource.restygwt.client.MethodCallback;
 import org.gwt.dynamic.common.client.services.AbstractServiceConsumer;
-import org.gwt.dynamic.module.foo.shared.FooData;
+import org.gwt.dynamic.module.gwtp.shared.RoleBean;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class FooServiceConsumer extends AbstractServiceConsumer<FooRestService> {
+public class RoleServiceConsumer extends AbstractServiceConsumer<RoleRestService> {
 
-	private static final Logger LOG = Logger.getLogger(FooServiceConsumer.class.getName());
+	private static final Logger LOG = Logger.getLogger(RoleServiceConsumer.class.getName());
 	
-	private static FooServiceConsumer instance;
+	private static RoleServiceConsumer instance;
 	
-	public static FooServiceConsumer get() {
-		if (instance == null) instance = new FooServiceConsumer();
+	public static RoleServiceConsumer get() {
+		if (instance == null) instance = new RoleServiceConsumer();
 		return instance;
 	}
 
-	private FooServiceConsumer() {
-		super(GWT.<FooRestService> create(FooRestService.class));
-		LOG.info("FooServiceConsumer: instantiated");
+	private RoleServiceConsumer() {
+		super(GWT.<RoleRestService> create(RoleRestService.class));
+		LOG.info("RoleServiceConsumer: instantiated");
 	}
 
-	public void getFooData(AsyncCallback<FooData> callback) {
-		LOG.info("FooServiceConsumer.getFooData");
-		new Requestor<FooData>() {
+	public void getRoles(AsyncCallback<Set<RoleBean>> callback) {
+		LOG.info("RoleServiceConsumer.getFooData");
+		new Requestor<Set<RoleBean>>() {
 			@Override
-			protected void callRest(FooRestService rest, MethodCallback<FooData> callback) {
-				rest.getFooData(callback);
+			protected void callRest(RoleRestService rest, MethodCallback<Set<RoleBean>> callback) {
+				rest.getRoles(callback);
 			}
 		}.call(callback);
 	}

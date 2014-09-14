@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.host.shared.services;
+package org.gwt.dynamic.host.shared;
 
 public interface ModuleServiceConst {
 

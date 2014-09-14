@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.host.server.rest;
+package org.gwt.dynamic.host.server;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -28,8 +28,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.gwt.dynamic.common.server.rest.AbstractServiceProvider;
 import org.gwt.dynamic.common.shared.Utils;
-import org.gwt.dynamic.host.shared.beans.ModuleBean;
-import org.gwt.dynamic.host.shared.services.ModuleServiceConst;
+import org.gwt.dynamic.host.shared.ModuleBean;
+import org.gwt.dynamic.host.shared.ModuleServiceConst;
 
 @Path("/")
 public class ModuleServiceProvider extends AbstractServiceProvider implements ModuleServiceConst {

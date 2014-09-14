@@ -18,17 +18,52 @@
 	xmlns:ui="urn:ui:com.google.gwt.uibinder" 
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	
-	<ui:style type="org.gwt.dynamic.module.gwtp.client.application.nested.NestedView.InnerCss">
-		.nested {
+	<ui:style type="org.gwt.dynamic.module.gwtp.client.application.roles.RolesView.InnerCss">
+		.content {
 			position: absolute;
 			top: 10px;
 			right: 10px;
 			bottom: 25px;
 			left: 10px;
-			background-color: lightgrey;
-			padding: 10px;
+			font-family: Helvetica, sans-serif;
+		}
+		
+		.link {
+			stroke-opacity: .6;
+			stroke-width: 0.08em;
+		}
+
+		.role {
+			stroke-width: 0.12em;
+			fill: #fff;
+			cursor: pointer;
+		}
+
+		.label {
+			cursor: pointer;
+		}
+		.label text {
+			fill: #fff;
+			text-anchor: middle;
+			font-size: 80%;
+			cursor: pointer;
+		}
+
+		.skill {
+			cursor: pointer;
+		}
+		.skill rect {
+			fill: #fff;
+			fill-opacity: .9;
+		}
+		.skill text {
+			fill: #999;
+			text-anchor: middle;
+			fill-opacity: .6;
+			font-size: 80%;
+			cursor: pointer;
 		}
 	</ui:style>
 	
-	<g:HTML ui:field="content" styleName="{style.nested}">Nested Presenter Widget</g:HTML>
+	<g:SimplePanel ui:field="content" styleName="{style.content}"/>
 </ui:UiBinder>

@@ -13,9 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.foo.shared.services;
+package org.gwt.dynamic.module.gwtp.shared;
 
-public interface FooServiceConst {
+public interface RoleServiceConst {
 	
-	String PATH = "foo";
+	String PATH = "role";
 }
