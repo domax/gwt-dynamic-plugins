@@ -47,4 +47,10 @@ public class NestedPresenter extends PresenterWidget<NestedPresenter.MyView> imp
 		super.onReveal();
 		LOG.info("NestedPresenter.onReveal");
 	}
+	
+	@Override
+	protected void onReset() {
+		super.onReset();
+		LOG.info("NestedPresenter.onReset");
+	}
 }

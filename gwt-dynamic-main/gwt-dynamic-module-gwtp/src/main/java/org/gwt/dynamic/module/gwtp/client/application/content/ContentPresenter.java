@@ -54,4 +54,10 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 		super.onReveal();
 		LOG.info("ContentPresenter.onReveal");
 	}
+	
+	@Override
+	protected void onReset() {
+		super.onReset();
+		LOG.info("ContentPresenter.onReset");
+	}
 }

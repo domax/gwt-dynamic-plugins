@@ -17,8 +17,6 @@ package com.gwtplatform.mvp.client;
 
 import java.util.logging.Logger;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.web.bindery.event.shared.EventBus;
 
 public class ModulePresenter<V extends View> extends PresenterWidget<V> {
@@ -27,24 +25,12 @@ public class ModulePresenter<V extends View> extends PresenterWidget<V> {
 	
 	public ModulePresenter(EventBus eventBus, V view) {
 		super(eventBus, view);
-		init();
 		LOG.info("ModulePresenter.instantiated");
 	}
 
 	public ModulePresenter(boolean autoBind, EventBus eventBus, V view) {
 		super(autoBind, eventBus, view);
-		init();
 		LOG.info("ModulePresenter.instantiated");
-	}
-	
-	private void init() {
-		LOG.info("ModulePresenter.init");
-		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-			@Override
-			public void execute() {
-				internalReveal();
-			}
-		});
 	}
 	
 	public void reveal() {
