@@ -78,10 +78,10 @@ public class CircleCollisionGameScene extends AbstractGameScene implements Colli
 		for (int i = 0; i < number; i++) {
 			double radius = 10.0 + Math.random() * 15.0;
 			BallSprite sprite = new BallSprite(this, radius);
-			sprite.setWeight((radius * radius) * Math.PI);
+			sprite.setWeight((radius * radius * radius) * Math.PI * 4 / 3);
 			sprite.getPosition().set(
-					radius + Math.random() * (getWidth() - radius*2),
-					radius + Math.random() * (getHeight() / 2 - radius*2));
+					radius + Math.random() * (getWidth() - radius * 2),
+					radius + Math.random() * (getHeight() / 2 - radius * 2));
 			sprite.getVelocity().set(
 					Math.random() * 200 - 100,
 					-Math.random() * 100);
