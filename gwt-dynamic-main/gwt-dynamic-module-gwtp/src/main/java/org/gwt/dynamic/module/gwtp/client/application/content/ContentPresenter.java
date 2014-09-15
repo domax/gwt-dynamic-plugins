@@ -44,7 +44,6 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 	}
 	
 	private final PresenterWidgetFactory<RolesPresenter> rolesPresenterFactory;
-	private RolesPresenter rolesPresenter;
 	
 	@Inject
 	public ContentPresenter(final EventBus eventBus, final MyView view, 
@@ -64,8 +63,7 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 			@Override
 			public void onSuccess(RolesPresenter result) {
 				LOG.info("ContentPresenter.rolesPresenterFactory#get#onSuccess");
-				rolesPresenter = result;
-				setInSlot(SLOT_NESTED, rolesPresenter);
+				setInSlot(SLOT_NESTED, result);
 			}
 			
 			@Override
