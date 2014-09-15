@@ -68,7 +68,7 @@ public class ContentView extends ViewWithUiHandlers<ContentUiHandlers>
 		LOG.info("HomeView.setError: error=" + error);
 		message.setText(error);
 		main.removeStyleName(style.banner());
-		main.addStyleName(style.error());
+		main.setStyleName(style.error(), !isEmpty(error));
 	}
 
 	@Override
@@ -76,7 +76,6 @@ public class ContentView extends ViewWithUiHandlers<ContentUiHandlers>
 		LOG.info("HomeView.setBanner: banner=" + banner);
 		message.setText(banner);
 		main.removeStyleName(style.error());
-		if (isEmpty(banner)) main.removeStyleName(style.banner());
-		else main.addStyleName(style.banner());
+		main.setStyleName(style.banner(), !isEmpty(banner));
 	}
 }
