@@ -18,6 +18,7 @@ package org.gwt.dynamic.module.gwtp.client.application.content;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import org.gwt.dynamic.module.gwtp.client.application.PresenterWidgetFactory;
 import org.gwt.dynamic.module.gwtp.client.application.roles.RolesPresenter;
 import org.gwt.dynamic.module.gwtp.client.event.RolesLoadedEvent;
 import org.gwt.dynamic.module.gwtp.client.services.RoleServiceConsumer;
@@ -42,13 +43,15 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 		void setBanner(String banner);
 	}
 	
-	private final RolesPresenter nestedPresenter;
+	private final PresenterWidgetFactory<RolesPresenter> rolesPresenterFactory;
+	private RolesPresenter rolesPresenter;
 	
 	@Inject
-	public ContentPresenter(final EventBus eventBus, final MyView view, RolesPresenter nestedPresenter) {
+	public ContentPresenter(final EventBus eventBus, final MyView view, 
+			PresenterWidgetFactory<RolesPresenter> rolesPresenterFactory) {
 		super(eventBus, view);
 		getView().setUiHandlers(this);
-		this.nestedPresenter = nestedPresenter;
+		this.rolesPresenterFactory = rolesPresenterFactory;
 		LOG.info("ContentPresenter: instantiated");
 	}
 	
@@ -56,7 +59,21 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 	protected void onBind() {
 		super.onBind();
 		LOG.info("ContentPresenter.onBind");
-		setInSlot(SLOT_NESTED, nestedPresenter);
+		rolesPresenterFactory.get(new AsyncCallback<RolesPresenter>() {
+			
+			@Override
+			public void onSuccess(RolesPresenter result) {
+				LOG.info("ContentPresenter.rolesPresenterFactory#get#onSuccess");
+				rolesPresenter = result;
+				setInSlot(SLOT_NESTED, rolesPresenter);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				LOG.severe("ContentPresenter.rolesPresenterFactory#get#onFailure: caught=" + caught.getMessage());
+				getView().setError("Error occurred: " + caught.getMessage());
+			}
+		});
 	}
 	
 	@Override
