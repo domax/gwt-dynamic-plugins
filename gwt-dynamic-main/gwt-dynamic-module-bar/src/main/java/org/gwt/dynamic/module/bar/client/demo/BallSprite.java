@@ -64,7 +64,7 @@ public class BallSprite extends AbstractDemoSprite {
 	@Override
 	public void init(SpriteInitCallback callback) {
 		setCollidable(true);
-		setWeight(1);
+//		setWeight(1);
 		setElasticity(.7);
 		super.init(callback);
 	}
