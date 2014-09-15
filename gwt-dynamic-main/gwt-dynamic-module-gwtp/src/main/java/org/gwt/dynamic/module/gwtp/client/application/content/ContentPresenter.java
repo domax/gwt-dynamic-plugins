@@ -36,7 +36,10 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 	public static final Object SLOT_NESTED = new Object();
 	
 	public interface MyView extends View, HasUiHandlers<ContentUiHandlers> {
+		
 		void setError(String error);
+		
+		void setBanner(String banner);
 	}
 	
 	private final RolesPresenter nestedPresenter;
@@ -60,12 +63,14 @@ public class ContentPresenter extends ModulePresenter<ContentPresenter.MyView> i
 	protected void onReveal() {
 		super.onReveal();
 		LOG.info("ContentPresenter.onReveal");
+		getView().setBanner("Loading role data...");
 		RoleServiceConsumer.get().getRoles(new AsyncCallback<Set<RoleBean>>() {
 			
 			@Override
 			public void onSuccess(Set<RoleBean> result) {
 				LOG.info("ContentPresenter#getRoles#onFailure");
 				LOG.fine("ContentPresenter#getRoles#onFailure: result=" + result);
+				getView().setBanner(null);
 				RolesLoadedEvent.fire(ContentPresenter.this, result);
 			}
 			

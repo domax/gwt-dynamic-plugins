@@ -15,6 +15,8 @@
  */
 package org.gwt.dynamic.module.gwtp.client.application.content;
 
+import static org.gwt.dynamic.common.shared.Utils.isEmpty;
+
 import java.util.logging.Logger;
 
 import com.google.gwt.resources.client.CssResource;
@@ -36,7 +38,10 @@ public class ContentView extends ViewWithUiHandlers<ContentUiHandlers>
 	interface Binder extends UiBinder<Widget, ContentView> {}
 
 	public interface InnerCss extends CssResource {
+		
 		String error();
+		
+		String banner();
 	}
 
 	@UiField public static InnerCss style;
@@ -62,6 +67,16 @@ public class ContentView extends ViewWithUiHandlers<ContentUiHandlers>
 	public void setError(String error) {
 		LOG.info("HomeView.setError: error=" + error);
 		message.setText(error);
+		main.removeStyleName(style.banner());
 		main.addStyleName(style.error());
+	}
+
+	@Override
+	public void setBanner(String banner) {
+		LOG.info("HomeView.setBanner: banner=" + banner);
+		message.setText(banner);
+		main.removeStyleName(style.error());
+		if (isEmpty(banner)) main.removeStyleName(style.banner());
+		else main.addStyleName(style.banner());
 	}
 }

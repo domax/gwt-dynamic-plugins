@@ -34,6 +34,10 @@
 			display: block;
 			color: red;
 		}
+		.banner .message {
+			display: block;
+			color: grey;
+		}
 		
 		.content {
 			position: absolute;
@@ -42,7 +46,8 @@
 			width: 100%;
 			height: 100%;
 		}
-		.error .content {
+		.error .content,
+		.banner .content {
 			display: none;
 		}
 	</ui:style>

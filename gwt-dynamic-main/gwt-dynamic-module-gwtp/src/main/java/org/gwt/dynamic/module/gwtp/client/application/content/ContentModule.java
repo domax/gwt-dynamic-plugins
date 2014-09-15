@@ -13,24 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.gwt.dynamic.module.gwtp.client.application;
+package org.gwt.dynamic.module.gwtp.client.application.content;
 
-import org.gwt.dynamic.module.gwtp.client.application.content.ContentModule;
+import org.gwt.dynamic.module.gwtp.client.application.roles.RolesPresenter;
+import org.gwt.dynamic.module.gwtp.client.application.roles.RolesView;
 
-import com.google.inject.Singleton;
-import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.event.shared.SimpleEventBus;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 
-public class ClientModule extends AbstractPresenterModule {
+public class ContentModule extends AbstractPresenterModule {
 
 	@Override
 	protected void configure() {
-		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
-    bind(PlaceManager.class).to(SilentPlaceManager.class).in(Singleton.class);
-		bind(FeatureController.class).asEagerSingleton();
-		
-		install(new ContentModule());
+		bindSingletonPresenterWidget(
+				ContentPresenter.class,
+				ContentPresenter.MyView.class,
+				ContentView.class);
+		bindSingletonPresenterWidget(
+				RolesPresenter.class,
+				RolesPresenter.MyView.class,
+				RolesView.class);
 	}
 }
